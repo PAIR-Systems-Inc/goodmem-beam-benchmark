@@ -48,7 +48,7 @@ Voyage Rerank 3, and GPT-4.1-mini as both reader and the upstream judge model.
 Set `GOODMEM_TLS_VERIFY=false` only for a trusted local instance with a development
 certificate. Normal connections verify TLS by default.
 
-Every stage is resumable. Accepted memories must reach `COMPLETED` before the
+Ingestion, answering, and judging are resumable. Accepted memories must reach `COMPLETED` before the
 agent can run. `beam repair` waits for the queue to drain, then recreates only
 this index's failed memories with the same content and deterministic IDs. It
 never replaces completed memories. An interrupted delete/create can be recovered

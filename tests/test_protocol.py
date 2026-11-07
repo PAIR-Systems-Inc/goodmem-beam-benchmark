@@ -158,3 +158,31 @@ def test_report_never_reports_a_complete_score_for_missing_questions(tmp_path):
     assert partial["primary_score"] is None
     assert partial["expected_questions"] == 20
     assert partial["scored_questions"] == 19
+
+
+def test_repair_refuses_to_delete_a_memory_outside_its_deterministic_ids(tmp_path, monkeypatch):
+    from goodmem_beam import ingest as module
+    from goodmem_beam.io import digest, write_json
+
+    prepared, run = tmp_path / "prepared", tmp_path / "run"
+    block = {"start": 0, "end": 1, "text": "synthetic conversation"}
+    write_json(prepared / "1.blocks.json", [block])
+    write_json(run / "index.json", {"identity": {"conversations": [{"id": "1", "memory_blocks": 1}]},
+                                    "spaces": {"1": "00000000-0000-4000-8000-000000000000"}})
+
+    class FakePacer:
+        def wait(self, batch):
+            pass
+
+    class Client:
+        def memories(self, space):
+            return [{"memoryId": "unrelated", "processingStatus": "FAILED",
+                     "metadata": {"block": 0, "sha256": digest(block)}}]
+
+        def request(self, *args, **kwargs):
+            pytest.fail("An unrelated memory must not be deleted")
+
+    monkeypatch.setattr(module, "SubmissionPacer", FakePacer)
+    monkeypatch.setattr(module.time, "sleep", lambda _: None)
+    with pytest.raises(GoodMemError, match="ownership/content"):
+        module.repair_failed(Client(), prepared, run)
