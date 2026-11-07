@@ -1,0 +1,266 @@
+{
+  "batch": 6,
+  "expected": 25,
+  "scored": 25,
+  "complete": true,
+  "errors": [],
+  "question_ids": [
+    "1:preference_following:1",
+    "2:summarization:1",
+    "3:temporal_reasoning:1",
+    "4:abstention:1",
+    "5:contradiction_resolution:1",
+    "6:event_ordering:1",
+    "7:information_extraction:1",
+    "8:instruction_following:1",
+    "9:knowledge_update:1",
+    "10:multi_session_reasoning:1",
+    "1:summarization:0",
+    "2:temporal_reasoning:0",
+    "3:abstention:0",
+    "4:contradiction_resolution:0",
+    "5:event_ordering:0",
+    "6:information_extraction:0",
+    "7:instruction_following:0",
+    "8:knowledge_update:0",
+    "9:multi_session_reasoning:0",
+    "10:preference_following:0",
+    "1:summarization:1",
+    "2:temporal_reasoning:1",
+    "3:abstention:1",
+    "4:contradiction_resolution:1",
+    "5:event_ordering:1"
+  ],
+  "score": 0.6492641537324464,
+  "baseline_score": 0.4292230540701129,
+  "paired_delta": 0.2200410996623335,
+  "per_ability": {
+    "preference_following": {
+      "count": 2,
+      "score": 0.75,
+      "baseline": 0.75
+    },
+    "summarization": {
+      "count": 3,
+      "score": 0.6388888888888888,
+      "baseline": 0.6
+    },
+    "temporal_reasoning": {
+      "count": 3,
+      "score": 0.6666666666666666,
+      "baseline": 0.0
+    },
+    "abstention": {
+      "count": 3,
+      "score": 1.0,
+      "baseline": 0.6666666666666666
+    },
+    "contradiction_resolution": {
+      "count": 3,
+      "score": 0.16666666666666666,
+      "baseline": 0.25
+    },
+    "event_ordering": {
+      "count": 3,
+      "score": 0.43831239221483126,
+      "baseline": 0.282414339473163
+    },
+    "information_extraction": {
+      "count": 2,
+      "score": 1.0,
+      "baseline": 1.0
+    },
+    "instruction_following": {
+      "count": 2,
+      "score": 0.75,
+      "baseline": 0.0
+    },
+    "knowledge_update": {
+      "count": 2,
+      "score": 1.0,
+      "baseline": 0.5
+    },
+    "multi_session_reasoning": {
+      "count": 2,
+      "score": 0.25,
+      "baseline": 0.41666666666666663
+    }
+  },
+  "rows": [
+    {
+      "id": "1:preference_following:1",
+      "ability": "preference_following",
+      "score": 0.5,
+      "baseline_score": 0.5,
+      "delta": 0.0
+    },
+    {
+      "id": "2:summarization:1",
+      "ability": "summarization",
+      "score": 0.2,
+      "baseline_score": 0.4,
+      "delta": -0.2
+    },
+    {
+      "id": "3:temporal_reasoning:1",
+      "ability": "temporal_reasoning",
+      "score": 0.5,
+      "baseline_score": 0.0,
+      "delta": 0.5
+    },
+    {
+      "id": "4:abstention:1",
+      "ability": "abstention",
+      "score": 1.0,
+      "baseline_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "id": "5:contradiction_resolution:1",
+      "ability": "contradiction_resolution",
+      "score": 0.25,
+      "baseline_score": 0.25,
+      "delta": 0.0
+    },
+    {
+      "id": "6:event_ordering:1",
+      "ability": "event_ordering",
+      "score": 0.5303030303030303,
+      "baseline_score": 0.3111111111111111,
+      "delta": 0.21919191919191916
+    },
+    {
+      "id": "7:information_extraction:1",
+      "ability": "information_extraction",
+      "score": 1.0,
+      "baseline_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "id": "8:instruction_following:1",
+      "ability": "instruction_following",
+      "score": 1.0,
+      "baseline_score": 0.0,
+      "delta": 1.0
+    },
+    {
+      "id": "9:knowledge_update:1",
+      "ability": "knowledge_update",
+      "score": 1.0,
+      "baseline_score": 0.0,
+      "delta": 1.0
+    },
+    {
+      "id": "10:multi_session_reasoning:1",
+      "ability": "multi_session_reasoning",
+      "score": 0.5,
+      "baseline_score": 0.5,
+      "delta": 0.0
+    },
+    {
+      "id": "1:summarization:0",
+      "ability": "summarization",
+      "score": 0.9166666666666666,
+      "baseline_score": 1.0,
+      "delta": -0.08333333333333337
+    },
+    {
+      "id": "2:temporal_reasoning:0",
+      "ability": "temporal_reasoning",
+      "score": 1.0,
+      "baseline_score": 0.0,
+      "delta": 1.0
+    },
+    {
+      "id": "3:abstention:0",
+      "ability": "abstention",
+      "score": 1.0,
+      "baseline_score": 0.0,
+      "delta": 1.0
+    },
+    {
+      "id": "4:contradiction_resolution:0",
+      "ability": "contradiction_resolution",
+      "score": 0.25,
+      "baseline_score": 0.5,
+      "delta": -0.25
+    },
+    {
+      "id": "5:event_ordering:0",
+      "ability": "event_ordering",
+      "score": 0.46463414634146344,
+      "baseline_score": 0.25181818181818183,
+      "delta": 0.2128159645232816
+    },
+    {
+      "id": "6:information_extraction:0",
+      "ability": "information_extraction",
+      "score": 1.0,
+      "baseline_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "id": "7:instruction_following:0",
+      "ability": "instruction_following",
+      "score": 0.5,
+      "baseline_score": 0.0,
+      "delta": 0.5
+    },
+    {
+      "id": "8:knowledge_update:0",
+      "ability": "knowledge_update",
+      "score": 1.0,
+      "baseline_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "id": "9:multi_session_reasoning:0",
+      "ability": "multi_session_reasoning",
+      "score": 0.0,
+      "baseline_score": 0.3333333333333333,
+      "delta": -0.3333333333333333
+    },
+    {
+      "id": "10:preference_following:0",
+      "ability": "preference_following",
+      "score": 1.0,
+      "baseline_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "id": "1:summarization:1",
+      "ability": "summarization",
+      "score": 0.8,
+      "baseline_score": 0.4,
+      "delta": 0.4
+    },
+    {
+      "id": "2:temporal_reasoning:1",
+      "ability": "temporal_reasoning",
+      "score": 0.5,
+      "baseline_score": 0.0,
+      "delta": 0.5
+    },
+    {
+      "id": "3:abstention:1",
+      "ability": "abstention",
+      "score": 1.0,
+      "baseline_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "id": "4:contradiction_resolution:1",
+      "ability": "contradiction_resolution",
+      "score": 0.0,
+      "baseline_score": 0.0,
+      "delta": 0.0
+    },
+    {
+      "id": "5:event_ordering:1",
+      "ability": "event_ordering",
+      "score": 0.32,
+      "baseline_score": 0.28431372549019607,
+      "delta": 0.03568627450980394
+    }
+  ]
+}

@@ -6,6 +6,43 @@ cannot be attributed to the reader alone. It is not a held-out validation result
 The earlier 52.28% was a 100-question GPT-5.2 replay with fixed retrieved evidence;
 the previous best complete 200-question score was 46.37% with GPT-5.4-mini.
 
+## Complete v3 result
+
+The full 200-question run scored **64.61%** on the primary metric and **62.56%**
+with recall adjustment. The primary score's 95% conversation-bootstrap interval
+is 61.08–68.16%. The paired gain over the previous full GPT-5.4-mini run is
+18.24 percentage points (95% interval 13.95–22.52 points).
+
+All eight batches below used the same v3 source and configuration. Each batch
+finished and was reviewed before starting the next. No answer was replaced for
+scoring poorly, and no prompt change was made between batches. Scores are means
+over each batch's 25 questions; the baseline column uses exactly those questions.
+
+| Batch | Questions | GPT-6.1 medium v3 | GPT-5.4-mini baseline |
+| --- | ---: | ---: | ---: |
+| 1 | 25 | 68.51% | 46.44% |
+| 2 | 25 | 65.19% | 40.08% |
+| 3 | 25 | 59.21% | 35.83% |
+| 4 | 25 | 56.68% | 46.62% |
+| 5 | 25 | 57.59% | 52.25% |
+| 6 | 25 | 71.76% | 53.03% |
+| 7 | 25 | 64.93% | 42.92% |
+| 8 | 25 | 73.02% | 53.83% |
+| **All** | **200** | **64.61%** | **46.37%** |
+
+There were no question-level errors, context evictions, or tool-budget
+exhaustions. The agent made 1,233 searches (6.165 per question, maximum 23) and
+596 original-message reads. All 200 answers passed the recorded submission
+procedure. Four recoverable tool-input errors were corrected in the loop;
+internal HTTP retries were not counted.
+
+The package source matches commit `e2935c2d94b7ef997a8d19f92583d95bb90fcd6e`.
+See the [full results](../RESULTS.md),
+[frozen protocol](../results/gpt-6.1-sol-medium-v3/protocol.json),
+[review decisions](../results/gpt-6.1-sol-medium-v3/batches/reviews.jsonl), and
+[procedure audit](../results/gpt-6.1-sol-medium-v3/procedure-audit.json).
+The earlier development checkpoints are preserved below.
+
 ## Configuration
 
 The requested model is `gpt-6.1-sol`, with medium reasoning through GoodMem's
@@ -28,9 +65,10 @@ draft, a further search or message read is required before submission can succee
 It does not automatically prove that every requested fact was found: coverage is
 still the reader's judgment. Missing facts should trigger further searches, and
 unresolved uncertainty must be acknowledged. At 32 tool rounds, the harness asks
-for an answer and records `budget_exhausted`. Active context is bounded to 600,000
-characters by omitting old evidence bodies; reasoning and call/result structure
-remain intact. Output limit is 16,000 tokens per call. Retrieval requests across
+for an answer and records `budget_exhausted`. V2 bounded active context to 600,000
+characters; v3 raises this to 2,800,000. The limit is enforced by omitting old
+evidence bodies; reasoning and call/result structure remain intact. Output limit
+is 16,000 tokens per call. Retrieval requests across
 four workers are paced at least three seconds apart to reduce provider throttling.
 
 The judge remains GPT-4.1-mini with the unchanged upstream rubric prompt and
@@ -46,7 +84,7 @@ question appears exactly once over eight batches.
 
 ```bash
 BEAM_READER_MODEL=gpt-6.1-sol uv run python tools/run_batch.py \
-  --config config/gpt61-medium-v2.toml --run runs/react-gpt61-medium-v2 --batch 0
+  --config config/gpt61-medium-v3.toml --run runs/my-gpt61-run --batch 0
 ```
 
 Inspect the batch's matched comparison against the previous GPT-5.4-mini answers
@@ -81,13 +119,14 @@ V3 (`config/gpt61-medium-v3.toml`) raises the active-context limit from 600,000 
 user preferences/restrictions, distinguish recurring event instances from updates,
 and preserve major themes in summaries. No gold fact, question-specific answer,
 ability label or rubric is added. The model, reasoning effort, index, reranker,
-retrieval sizes, round limit and judge stay the same. V3 starts a separate run and
-is first compared on the same 25-question batch before continuing. This is further
+retrieval sizes, round limit and judge stay the same. V3 started a separate run and
+was first compared on the same 25-question batch before continuing. This is further
 development on BEAM, not an independent test set.
 
 V3's first 25 scored 68.51%, compared with 58.02% for v2 and 46.44% for
 GPT-5.4-mini on those questions. This is a development checkpoint, not a full-run
-score. After this checkpoint the prompt is frozen for the remaining batches.
+score. After this checkpoint the decision was to retain the same prompt for the
+remaining batches. All 200 v3 answers use that one protocol.
 
 ## Generality boundary
 
@@ -114,5 +153,6 @@ The [context replay](../experiments/gpt61-context-replay/summary.json) includes 
 conditions and their judgments. Verify batch arithmetic without credentials:
 
 ```bash
-uv run python tools/verify_batches.py experiments/gpt61-medium-v2-50q
+uv run python tools/verify_batches.py experiments/gpt61-medium-v2-50q results/gpt-6.1-sol-medium-v3
+uv run python tools/audit_agent_trace.py results/gpt-6.1-sol-medium-v3
 ```

@@ -1,0 +1,266 @@
+{
+  "batch": 0,
+  "expected": 25,
+  "scored": 25,
+  "complete": true,
+  "errors": [],
+  "question_ids": [
+    "1:abstention:0",
+    "2:contradiction_resolution:0",
+    "3:event_ordering:0",
+    "4:information_extraction:0",
+    "5:instruction_following:0",
+    "6:knowledge_update:0",
+    "7:multi_session_reasoning:0",
+    "8:preference_following:0",
+    "9:summarization:0",
+    "10:temporal_reasoning:0",
+    "1:abstention:1",
+    "2:contradiction_resolution:1",
+    "3:event_ordering:1",
+    "4:information_extraction:1",
+    "5:instruction_following:1",
+    "6:knowledge_update:1",
+    "7:multi_session_reasoning:1",
+    "8:preference_following:1",
+    "9:summarization:1",
+    "10:temporal_reasoning:1",
+    "1:contradiction_resolution:0",
+    "2:event_ordering:0",
+    "3:information_extraction:0",
+    "4:instruction_following:0",
+    "5:knowledge_update:0"
+  ],
+  "score": 0.6850587937365467,
+  "baseline_score": 0.4643898635477583,
+  "paired_delta": 0.22066893018878836,
+  "per_ability": {
+    "abstention": {
+      "count": 2,
+      "score": 1.0,
+      "baseline": 1.0
+    },
+    "contradiction_resolution": {
+      "count": 3,
+      "score": 0.5833333333333334,
+      "baseline": 0.5
+    },
+    "event_ordering": {
+      "count": 3,
+      "score": 0.35882328113788886,
+      "baseline": 0.21991552956465238
+    },
+    "information_extraction": {
+      "count": 3,
+      "score": 1.0,
+      "baseline": 0.3333333333333333
+    },
+    "instruction_following": {
+      "count": 3,
+      "score": 1.0,
+      "baseline": 0.6666666666666666
+    },
+    "knowledge_update": {
+      "count": 3,
+      "score": 1.0,
+      "baseline": 0.6666666666666666
+    },
+    "multi_session_reasoning": {
+      "count": 2,
+      "score": 0.5,
+      "baseline": 0.25
+    },
+    "preference_following": {
+      "count": 2,
+      "score": 0.5,
+      "baseline": 0.375
+    },
+    "summarization": {
+      "count": 2,
+      "score": 0.6499999999999999,
+      "baseline": 0.6000000000000001
+    },
+    "temporal_reasoning": {
+      "count": 2,
+      "score": 0.0,
+      "baseline": 0.0
+    }
+  },
+  "rows": [
+    {
+      "id": "1:abstention:0",
+      "ability": "abstention",
+      "score": 1.0,
+      "baseline_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "id": "2:contradiction_resolution:0",
+      "ability": "contradiction_resolution",
+      "score": 0.5,
+      "baseline_score": 0.25,
+      "delta": 0.25
+    },
+    {
+      "id": "3:event_ordering:0",
+      "ability": "event_ordering",
+      "score": 0.45813953488372094,
+      "baseline_score": 0.2078947368421053,
+      "delta": 0.25024479804161565
+    },
+    {
+      "id": "4:information_extraction:0",
+      "ability": "information_extraction",
+      "score": 1.0,
+      "baseline_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "id": "5:instruction_following:0",
+      "ability": "instruction_following",
+      "score": 1.0,
+      "baseline_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "id": "6:knowledge_update:0",
+      "ability": "knowledge_update",
+      "score": 1.0,
+      "baseline_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "id": "7:multi_session_reasoning:0",
+      "ability": "multi_session_reasoning",
+      "score": 1.0,
+      "baseline_score": 0.5,
+      "delta": 0.5
+    },
+    {
+      "id": "8:preference_following:0",
+      "ability": "preference_following",
+      "score": 0.0,
+      "baseline_score": 0.0,
+      "delta": 0.0
+    },
+    {
+      "id": "9:summarization:0",
+      "ability": "summarization",
+      "score": 0.6,
+      "baseline_score": 0.4,
+      "delta": 0.19999999999999996
+    },
+    {
+      "id": "10:temporal_reasoning:0",
+      "ability": "temporal_reasoning",
+      "score": 0.0,
+      "baseline_score": 0.0,
+      "delta": 0.0
+    },
+    {
+      "id": "1:abstention:1",
+      "ability": "abstention",
+      "score": 1.0,
+      "baseline_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "id": "2:contradiction_resolution:1",
+      "ability": "contradiction_resolution",
+      "score": 0.75,
+      "baseline_score": 1.0,
+      "delta": -0.25
+    },
+    {
+      "id": "3:event_ordering:1",
+      "ability": "event_ordering",
+      "score": 0.15517241379310348,
+      "baseline_score": 0.1925925925925926,
+      "delta": -0.03742017879948911
+    },
+    {
+      "id": "4:information_extraction:1",
+      "ability": "information_extraction",
+      "score": 1.0,
+      "baseline_score": 0.0,
+      "delta": 1.0
+    },
+    {
+      "id": "5:instruction_following:1",
+      "ability": "instruction_following",
+      "score": 1.0,
+      "baseline_score": 0.0,
+      "delta": 1.0
+    },
+    {
+      "id": "6:knowledge_update:1",
+      "ability": "knowledge_update",
+      "score": 1.0,
+      "baseline_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "id": "7:multi_session_reasoning:1",
+      "ability": "multi_session_reasoning",
+      "score": 0.0,
+      "baseline_score": 0.0,
+      "delta": 0.0
+    },
+    {
+      "id": "8:preference_following:1",
+      "ability": "preference_following",
+      "score": 1.0,
+      "baseline_score": 0.75,
+      "delta": 0.25
+    },
+    {
+      "id": "9:summarization:1",
+      "ability": "summarization",
+      "score": 0.7,
+      "baseline_score": 0.8,
+      "delta": -0.10000000000000009
+    },
+    {
+      "id": "10:temporal_reasoning:1",
+      "ability": "temporal_reasoning",
+      "score": 0.0,
+      "baseline_score": 0.0,
+      "delta": 0.0
+    },
+    {
+      "id": "1:contradiction_resolution:0",
+      "ability": "contradiction_resolution",
+      "score": 0.5,
+      "baseline_score": 0.25,
+      "delta": 0.25
+    },
+    {
+      "id": "2:event_ordering:0",
+      "ability": "event_ordering",
+      "score": 0.4631578947368421,
+      "baseline_score": 0.25925925925925924,
+      "delta": 0.20389863547758286
+    },
+    {
+      "id": "3:information_extraction:0",
+      "ability": "information_extraction",
+      "score": 1.0,
+      "baseline_score": 0.0,
+      "delta": 1.0
+    },
+    {
+      "id": "4:instruction_following:0",
+      "ability": "instruction_following",
+      "score": 1.0,
+      "baseline_score": 1.0,
+      "delta": 0.0
+    },
+    {
+      "id": "5:knowledge_update:0",
+      "ability": "knowledge_update",
+      "score": 1.0,
+      "baseline_score": 0.0,
+      "delta": 1.0
+    }
+  ]
+}

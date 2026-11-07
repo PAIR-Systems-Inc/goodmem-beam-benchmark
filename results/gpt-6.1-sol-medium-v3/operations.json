@@ -1,0 +1,101 @@
+{
+  "answer_source_commit": "e2935c2d94b7ef997a8d19f92583d95bb90fcd6e",
+  "source_commit_verified": true,
+  "reader_response_models": {
+    "gpt-6.1-sol": 2252
+  },
+  "judge_response_models": {
+    "gpt-4.1-mini-2025-04-14": 2430
+  },
+  "final_answer_errors": 0,
+  "final_judgment_errors": 0,
+  "saved_interrupted_trace_attempts": 0,
+  "internal_http_retries": "not instrumented",
+  "search_count_distribution": {
+    "3": 69,
+    "4": 35,
+    "5": 17,
+    "6": 18,
+    "7": 7,
+    "8": 10,
+    "9": 6,
+    "10": 7,
+    "11": 10,
+    "12": 1,
+    "13": 2,
+    "14": 8,
+    "15": 2,
+    "16": 1,
+    "17": 3,
+    "19": 1,
+    "20": 1,
+    "21": 1,
+    "23": 1
+  },
+  "read_count_distribution": {
+    "0": 8,
+    "1": 65,
+    "2": 56,
+    "3": 19,
+    "4": 11,
+    "5": 13,
+    "6": 5,
+    "7": 6,
+    "8": 5,
+    "9": 3,
+    "10": 3,
+    "11": 1,
+    "12": 2,
+    "14": 1,
+    "16": 1,
+    "19": 1
+  },
+  "questions_with_multiple_searches": 200,
+  "questions_with_reads": 192,
+  "total_reads": 596,
+  "context_compactions": 0,
+  "stop_reasons": {
+    "verified_submission": 200
+  },
+  "recoverable_tool_input_errors": {
+    "Coverage cites an evidence ID that was never returned": 1,
+    "Read a range of at most 31 messages, with nonnegative IDs": 1,
+    "A supported finding needs a returned evidence ID": 2
+  },
+  "max_model_calls_used": 32,
+  "normalized_nuggets": [
+    {
+      "id": "4:summarization:0",
+      "rubric_index": 1,
+      "score": 0.5,
+      "raw_sha256": "4ad512271fae9c74cdb0823c655d2790f1fa13bd545d433c64ee17e1b8f64e77"
+    },
+    {
+      "id": "4:summarization:1",
+      "rubric_index": 1,
+      "score": 1.0,
+      "raw_sha256": "72a72bcce22d425477ce5b51155204f564bdc574c2e415e4884ba2f06b4fbd41"
+    },
+    {
+      "id": "4:summarization:1",
+      "rubric_index": 2,
+      "score": 1.0,
+      "raw_sha256": "7ddbbd9b34a74baed8283e018c1eab71f351ee026ab102e1179d4c0d5e61ef1f"
+    },
+    {
+      "id": "4:summarization:1",
+      "rubric_index": 3,
+      "score": 0.0,
+      "raw_sha256": "33e13adb090840f36c77dac07e6b7a7583762e6022dc55f25e76b61adc6ef500"
+    }
+  ],
+  "undefined_event_tau_questions": [],
+  "reader_usage_successful_attempts": {
+    "prompt_tokens": 253812210,
+    "completion_tokens": 302750,
+    "reasoning_tokens": 34360,
+    "cached_tokens": 225085232
+  },
+  "tool_payload_hashes_verified": 2252,
+  "usage_scope": "Successful answer trajectories only; excludes development runs, probes, diagnostics and judging; not a billing estimate"
+}

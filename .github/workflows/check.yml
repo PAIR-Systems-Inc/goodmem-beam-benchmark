@@ -11,5 +11,8 @@ jobs:
       - run: uv sync --locked
       - run: uv run ruff check src tests tools
       - run: uv run pytest -q
-      - run: uv run python tools/verify_results.py results/gpt-4.1-mini results/gpt-5.4-mini
-      - run: uv run python tools/verify_batches.py experiments/gpt61-medium-v2-50q
+      - run: uv run python tools/verify_results.py results/gpt-4.1-mini results/gpt-5.4-mini results/gpt-6.1-sol-medium-v3
+      - run: uv run python tools/verify_batches.py experiments/gpt61-medium-v2-50q results/gpt-6.1-sol-medium-v3
+      - run: uv run python tools/audit_agent_trace.py results/gpt-6.1-sol-medium-v3
+      - run: sha256sum -c results/artifacts.sha256
+      - run: sha256sum -c experiments/artifacts.sha256

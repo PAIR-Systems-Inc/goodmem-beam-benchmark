@@ -1,0 +1,97 @@
+{
+  "verified_at": "2026-11-07T22:10:24.667497+00:00",
+  "index_fingerprint": "ce75311dde612ae884e61bc311cb3a232332340860e91f0564213dd7715ca52b",
+  "conversations": [
+    {
+      "conversation_id": "1",
+      "expected_memories": 1094,
+      "statuses": {
+        "COMPLETED": 1094
+      },
+      "matching_ingestion_metadata_digests": 1094
+    },
+    {
+      "conversation_id": "2",
+      "expected_memories": 1044,
+      "statuses": {
+        "COMPLETED": 1044
+      },
+      "matching_ingestion_metadata_digests": 1044
+    },
+    {
+      "conversation_id": "3",
+      "expected_memories": 1125,
+      "statuses": {
+        "COMPLETED": 1125
+      },
+      "matching_ingestion_metadata_digests": 1125
+    },
+    {
+      "conversation_id": "4",
+      "expected_memories": 876,
+      "statuses": {
+        "COMPLETED": 876
+      },
+      "matching_ingestion_metadata_digests": 876
+    },
+    {
+      "conversation_id": "5",
+      "expected_memories": 743,
+      "statuses": {
+        "COMPLETED": 743
+      },
+      "matching_ingestion_metadata_digests": 743
+    },
+    {
+      "conversation_id": "6",
+      "expected_memories": 995,
+      "statuses": {
+        "COMPLETED": 995
+      },
+      "matching_ingestion_metadata_digests": 995
+    },
+    {
+      "conversation_id": "7",
+      "expected_memories": 1104,
+      "statuses": {
+        "COMPLETED": 1104
+      },
+      "matching_ingestion_metadata_digests": 1104
+    },
+    {
+      "conversation_id": "8",
+      "expected_memories": 1033,
+      "statuses": {
+        "COMPLETED": 1033
+      },
+      "matching_ingestion_metadata_digests": 1033
+    },
+    {
+      "conversation_id": "9",
+      "expected_memories": 1015,
+      "statuses": {
+        "COMPLETED": 1015
+      },
+      "matching_ingestion_metadata_digests": 1015
+    },
+    {
+      "conversation_id": "10",
+      "expected_memories": 1269,
+      "statuses": {
+        "COMPLETED": 1269
+      },
+      "matching_ingestion_metadata_digests": 1269
+    }
+  ],
+  "expected_memories": 10298,
+  "all_completed": true,
+  "server": {
+    "version": "0.0.0-dev",
+    "major": 0,
+    "minor": 0,
+    "patch": 0,
+    "dirty": true,
+    "gitDescribe": "clients/v2/go/v0.1.14-42-gf9b737042-dirty"
+  },
+  "scope": "Readiness, deterministic IDs, source preparation hashes and stored ingestion metadata; no re-embedding or mutations"
+}

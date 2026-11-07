@@ -1,147 +1,189 @@
 # Measured BEAM-10M results
 
-**GoodMem + the basic ReAct agent scored 44.49% with GPT-4.1-mini and 46.37%
-with GPT-5.4-mini.** Each run answered and graded all **200 questions across all
-ten complete histories**. Evaluation completed on 7 November 2026.
+**GoodMem + GPT-6.1 Sol with medium reasoning scored 64.61% across all 200
+questions and ten complete histories.** The same v3 harness was used throughout,
+with a review after every 25 questions. Evaluation completed on 7 November 2026.
 
-| Reader | Questions graded | Primary score | 95% conversation bootstrap CI | Recall-adjusted score |
+| Reader and harness | Questions graded | Primary score | 95% conversation bootstrap CI | Recall-adjusted score |
 | --- | ---: | ---: | ---: | ---: |
-| GPT-4.1-mini | 200/200 | **44.49%** | 40.33–48.44% | 42.64% |
-| GPT-5.4-mini, reasoning disabled | 200/200 | **46.37%** | 41.17–51.71% | 44.41% |
+| GPT-4.1-mini, initial harness | 200/200 | 44.49% | 40.33–48.44% | 42.64% |
+| GPT-5.4-mini, reasoning disabled, initial harness | 200/200 | 46.37% | 41.17–51.71% | 44.41% |
+| **GPT-6.1 Sol, medium reasoning, v3 harness** | **200/200** | **64.61%** | **61.08–68.16%** | **62.56%** |
+
+The gain over the previous complete GPT-5.4-mini run is **18.24 percentage
+points**, with a paired conversation-bootstrap 95% interval of **13.95–22.52
+points**. Both the reader and harness changed; this is not an isolated model
+comparison. Generic policies were developed while inspecting BEAM failures, so
+this is a **development evaluation, not held-out validation**.
 
 These are mean rubric scores, not percentages of wholly correct answers. The
-primary metric follows the upstream reporting script: normalized Kendall tau for
-event ordering and mean nugget scores for the other nine abilities. The secondary
+primary metric follows upstream reporting: normalized Kendall tau for event
+ordering and mean nugget scores for the other nine abilities. The secondary
 metric uses `tau_norm × event F1` for event ordering. Both are reported because
 omitting events can receive a high ordering score. See [methodology](docs/methodology.md).
 
-The paired difference is **+1.89 percentage points** for GPT-5.4-mini; its 95%
-conversation-bootstrap interval is **−2.80 to +6.73 points**. This experiment does
-not establish a reliable difference between the readers. Bootstrap intervals use
-10,000 resamples of entire conversations, seed 20261107. They do not measure
-judge disagreement or repeated-run variation.
+Intervals use 10,000 resamples of entire conversations, seed 20261107. They
+measure variation across these ten histories, not judge disagreement, repeated
+model sampling, or selection effects from development. The previously discussed
+52.28% was a [100-question replay with fixed evidence](FAILURE_ANALYSIS.md), not
+a full end-to-end benchmark result.
 
 ## Per ability
 
 Each cell averages 20 questions. Scores are percentages.
 
-| Ability | GPT-4.1-mini | GPT-5.4-mini |
-| --- | ---: | ---: |
-| Abstention | 35.00 | 70.00 |
-| Contradiction resolution | 32.50 | 41.25 |
-| Event ordering, primary | 20.60 | 23.22 |
-| Information extraction | 51.25 | 55.00 |
-| Instruction following | 61.25 | 55.00 |
-| Knowledge update | 67.50 | 75.00 |
-| Multi-session reasoning | 35.33 | 21.83 |
-| Preference following | 66.25 | 56.25 |
-| Summarization | 57.69 | 58.68 |
-| Temporal reasoning | 17.50 | 7.50 |
-| Event ordering, recall-adjusted (secondary) | 2.07 | 3.55 |
+| Ability | GPT-4.1-mini | GPT-5.4-mini | GPT-6.1 Sol medium, v3 |
+| --- | ---: | ---: | ---: |
+| Abstention | 35.00 | 70.00 | 90.00 |
+| Contradiction resolution | 32.50 | 41.25 | 51.25 |
+| Event ordering, primary | 20.60 | 23.22 | 32.64 |
+| Information extraction | 51.25 | 55.00 | 75.00 |
+| Instruction following | 61.25 | 55.00 | 77.50 |
+| Knowledge update | 67.50 | 75.00 | 78.75 |
+| Multi-session reasoning | 35.33 | 21.83 | 44.50 |
+| Preference following | 66.25 | 56.25 | 72.50 |
+| Summarization | 57.69 | 58.68 | 68.94 |
+| Temporal reasoning | 17.50 | 7.50 | 55.00 |
+| Event ordering, recall-adjusted (secondary) | 2.07 | 3.55 | 12.17 |
 
-Knowledge updates and preference/instruction questions perform better than
-temporal reasoning and event reconstruction. The large event-ordering drop under
-recall adjustment indicates poor recovery of the required event set. These are
-observed weaknesses of this raw-history retrieval method; the experiment does
-not isolate whether failures come from retrieval, reader decisions, or grading.
+Event reconstruction and multi-session aggregation remain the weakest areas.
+The event-ordering drop after recall adjustment shows that recovering the
+required event set is still difficult. Batch reviews also found incorrect
+episode/date selection, missed conflicting claims, and answers that requested
+clarification without supplying the requested information. These observations do
+not isolate retrieval failures from reader decisions or reference/judge issues.
 
 ## Corpus and configuration
 
-- Pinned BEAM-10M release: **208,696 messages, 108,051,936 content tokens** under
-  `o200k_base`, and 10,298 ingested memory blocks. Individual histories measure
-  9.66–12.93 million tokens. All canonical chat messages, including assistant
-  messages, are present. No history truncation or question subsampling was used.
-- Local GoodMem server at `https://localhost:8080`, using its registered
-  **Voyage 4 Large** embedder and **Voyage Rerank 3** reranker. All 10,298 memories
-  were verified `COMPLETED` before answering and again after evaluation.
-- Approximately 48,000-character memory blocks; GoodMem recursive chunks of
-  3,200 characters with 400-character overlap. Each search retrieves 128 dense
-  candidates and reranks to 12 chunks. HNSW `efSearch=256` with relaxed iterative
-  scanning and `maxScanTuples=100000`.
-- Same agent prompt, tools, corpus, and retrieval configuration for both readers.
-  Up to 16 tool rounds; the model decides whether to search again, read adjacent
-  messages, or answer. The active context budget is 180,000 characters, and each
-  reader call allows 5,000 output tokens.
-- GPT-4.1-mini uses temperature 0. GPT-5.4-mini uses `reasoning_effort=none` because
-  its Chat Completions endpoint rejects function tools with reasoning enabled.
-  The common judge is GPT-4.1-mini at temperature 0 with the released BEAM prompts.
-- Actual response model identifiers: `gpt-4.1-mini-2025-04-14` and
-  `gpt-5.4-mini-2026-03-17`. Model inference uses hosted providers through the local
-  GoodMem proxy. The server reports a development build with local changes;
-  its exact reported version is in the exported protocol.
+All runs use the same pinned BEAM-10M release: **208,696 messages, 108,051,936
+content tokens** under `o200k_base`, and **10,298 memory blocks**. Individual
+histories measure 9.66–12.93 million tokens. All canonical chat messages,
+including assistant messages, are present; no history truncation or question
+subsampling was used for these complete results. Separate generation plans and
+profiles were not indexed. Original inline message text was retained verbatim.
 
-## Retrieval loop behavior
+The local GoodMem server at `https://localhost:8080` uses registered **Voyage 4
+Large** embeddings and **Voyage Rerank 3**. Memory blocks are approximately
+48,000 characters; recursive chunks are 3,200 characters with 400-character
+overlap. HNSW uses `efSearch=256`, relaxed iterative scanning, and
+`maxScanTuples=100000`. Model inference uses hosted providers through GoodMem's
+proxy. The server is a development build with local changes, recorded in each
+protocol.
 
-| Recorded behavior | GPT-4.1-mini | GPT-5.4-mini |
-| --- | ---: | ---: |
-| Mean successful searches/question | 1.125 | 1.240 |
-| Questions using multiple searches | 21/200 | 39/200 |
-| Maximum searches for one question | 4 | 4 |
-| Questions using neighboring-message reads | 15/200 | 12/200 |
-| Total successful reads | 18 | 12 |
-| Questions exhausting the 16-round budget | 0 | 0 |
-| Context compactions | 0 | 0 |
-| Recoverable oversized read requests | 6 | 9 |
-| Reader input tokens, successful final attempts | 3,640,763 | 4,158,777 |
-| Reader output tokens, successful final attempts | 56,884 | 40,050 |
-
-Repeated retrieval is enabled and occurred in both live runs. Most answers still
-followed a single search because the readers chose to stop. The harness does not
-guarantee they have found every relevant fact when they stop. These runs are a
-basic starting point, not an optimized BEAM system or a reproduction of LIGHT.
-No prompt or retrieval tuning was performed against these measured scores.
-
-## Operational record and reproducibility
-
-Initial embedding throttles left 1,588 memories failed. Paced repair recreated
-only those owned failed memories, with the same content and deterministic IDs.
-Evaluation began after the full index was searchable.
-
-Reranking HTTP 429 errors interrupted 36 baseline and 55 GPT-5.4-mini answers.
-Only failed attempts were rerun, with paced retrieval; successful answers stayed
-fixed. All retries succeeded. Final reports contain zero answer or grading errors.
-Timing is affected by shared provider limits and retry pacing, so this is not a
-controlled latency comparison. Token totals above exclude failed attempts and
-judge calls and should not be treated as a billing estimate.
-
-The read tool rejected six baseline and nine GPT-5.4-mini requests that exceeded
-its 31-message range limit. These were returned to the agent as input errors;
-the agent continued, and their model calls remain included in the recorded usage.
-
-One judge explanation per run contained invalid JSON backslashes around LaTeX.
-The final parser preserved those literal characters and the numeric scores;
-original raw responses and normalization flags are exported. Structural JSON
-errors remain failures. Answer-generation source matches commit
-`b821af2444b39b105c28b506bcbdec80f7b7e514`; the parser correction is in
-`ad2803118d984aa35b66a80cde6cfc2ed0012108`. The frozen answer protocols were retained.
-
-| Artifact | GPT-4.1-mini | GPT-5.4-mini |
+| Setting | Initial harness, both mini readers | GPT-6.1 Sol medium, v3 |
 | --- | --- | --- |
-| Aggregate scores | [summary](results/gpt-4.1-mini/summary.json) | [summary](results/gpt-5.4-mini/summary.json) |
-| Frozen setup and source hashes | [protocol](results/gpt-4.1-mini/protocol.json) | [protocol](results/gpt-5.4-mini/protocol.json) |
-| All answers, rubrics, and grades | [outcomes](results/gpt-4.1-mini/outcomes.jsonl.gz) | [outcomes](results/gpt-5.4-mini/outcomes.jsonl.gz) |
-| Queries and evidence identifiers | [traces](results/gpt-4.1-mini/retrieval-traces.jsonl.gz) | [traces](results/gpt-5.4-mini/retrieval-traces.jsonl.gz) |
-| Retries, model snapshots, parser audit | [operations](results/gpt-4.1-mini/operations.json) | [operations](results/gpt-5.4-mini/operations.json) |
+| API | Chat Completions | Responses; medium reasoning, all-turn reasoning context |
+| Dense candidates → reranked chunks per search | 128 → 12 | 128 → 20 |
+| Tool-round limit | 16 | 32 |
+| Active-context limit | 180,000 characters | 2,800,000 characters |
+| Output limit per reader call | 5,000 tokens | 16,000 tokens |
+| Minimum distinct searches | First search required | Three distinct queries required |
+| Submission checks | Model chooses when to finish | Cited factual checklist, then a fresh search/read after drafting |
+| Evidence tools | Search and original-message reads | Same, plus exact source-header restoration and date calculator |
+| Judge | GPT-4.1-mini, temperature 0 | Same judge and upstream prompts |
 
-Also included: [full index verification](results/index-verification.json),
-[paired comparison](results/comparison.json), dataset checksums, and retry histories.
-Full source excerpts and credentials remain in ignored local files.
+Source headers are restored only after exact matching inside the parent block
+already returned by GoodMem. This does not search the rest of the corpus.
+Original-message reads remain limited to 31 messages and 24,000 characters.
+The Responses loop retains opaque reasoning between calls without logging or
+exporting it. Actual response identifiers were `gpt-6.1-sol` for the new reader
+and `gpt-4.1-mini-2025-04-14` for its judge.
 
-Recompute every published aggregate and verify tool counts without an API key:
+The harness contains no named benchmark subjects, answer-specific facts,
+hand-written queries for individual questions, or question-ID branches. The
+reader receives no ability label, rubric, or reference answer. General
+instructions cover preference retrieval, conflicting updates, recurring events,
+summary coverage, and checking evidence before stopping. Chronological lists
+use one event per line to match the released evaluator's input format.
+
+A 50-question v2 development run and a two-question context-retention diagnostic
+preceded v3. All 200 v3 answers use the same source and configuration. After the
+first 25-question checkpoint, that configuration was kept unchanged through the
+remaining seven reviews. No successful answer was replaced because of a low
+score. The [experiment record](docs/gpt61-experiment.md) preserves the revisions,
+subset results, and all eight batch scores.
+
+## Retrieval loop and usage
+
+| Recorded behavior | GPT-4.1-mini | GPT-5.4-mini | GPT-6.1 Sol medium, v3 |
+| --- | ---: | ---: | ---: |
+| Mean successful searches/question | 1.125 | 1.240 | 6.165 |
+| Questions using multiple searches | 21/200 | 39/200 | 200/200 |
+| Maximum searches for one question | 4 | 4 | 23 |
+| Questions using original-message reads | 15/200 | 12/200 | 192/200 |
+| Total successful reads | 18 | 12 | 596 |
+| Questions exhausting their tool-round budget | 0 | 0 | 0 |
+| Context evictions | 0 | 0 | 0 |
+| Reader input tokens | 3,640,763 | 4,158,777 | 253,812,210 |
+| Cached input tokens | Not summarized | Not summarized | 225,085,232 |
+| Reader output tokens | 56,884 | 40,050 | 302,750 |
+
+The new run made **1,233 searches and 2,252 reader calls**. All 200 final answers
+passed the recorded stopping checks. Those checks establish a procedure, not
+factual completeness or correctness. Four invalid tool requests were corrected
+within the loop: one oversized read and three citation/checklist errors.
+
+The larger context and longer trajectories substantially increase input usage;
+88.68% of the new run's input tokens were reported cached. Output totals include
+34,360 reasoning tokens. Usage covers successful full-run answer trajectories
+only, excluding development, diagnostics, probes, and judging. It is not a
+billing estimate. Shared providers and paced retrieval also prevent a controlled
+latency comparison.
+
+## Integrity and artifacts
+
+All 200 answers and judgments completed without question-level errors. Internal
+HTTP retries were not instrumented. Four judge explanations required the same
+narrow invalid-backslash normalization used in the earlier runs; numeric scores
+and raw outputs were preserved. No event-ordering tau was undefined.
+
+After evaluation, all **10,298 memories** were again `COMPLETED`. Deterministic
+IDs and stored ingestion metadata digests matched the prepared blocks, whose
+hashes matched the index manifest. This verifies readiness and recorded source
+identity; it does not re-embed or reread every stored content body.
+
+The answer-generation package matches commit
+`e2935c2d94b7ef997a8d19f92583d95bb90fcd6e` and the frozen protocol hash. Export
+checks validated 2,252 private tool-payload hashes. Independent offline checks
+recomputed scores, confidence intervals, tool counts, and all batch comparisons.
+The procedure audit checked model/reasoning settings, citation IDs, submission
+gates, final answers, and reported usage. It is not an entailment audit.
+
+| GPT-6.1 Sol medium artifact | Contents |
+| --- | --- |
+| [Summary](results/gpt-6.1-sol-medium-v3/summary.json) | All aggregates and confidence interval |
+| [Protocol](results/gpt-6.1-sol-medium-v3/protocol.json) | Frozen settings, model registrations, prompt and source hashes |
+| [Outcomes](results/gpt-6.1-sol-medium-v3/outcomes.jsonl.gz) | All answers, rubrics, and raw judgments |
+| [Retrieval traces](results/gpt-6.1-sol-medium-v3/retrieval-traces.jsonl.gz) | Queries, evidence identifiers, tool decisions, and usage |
+| [Operations](results/gpt-6.1-sol-medium-v3/operations.json) | Model identities, tool errors, normalization, and usage scope |
+| [Procedure audit](results/gpt-6.1-sol-medium-v3/procedure-audit.json) | Stopping and tool-protocol checks |
+| [Paired comparison](results/gpt-6.1-sol-medium-v3/comparison.json) | Difference from the previous complete GPT-5.4-mini run |
+| [Index verification](results/gpt-6.1-sol-medium-v3/index-verification.json) | Final readiness and stored ingestion metadata check |
+| [Batch reviews](results/gpt-6.1-sol-medium-v3/batches/reviews.jsonl) | Decisions at each 25-question checkpoint |
+
+The [initial results report](docs/initial-results.md) retains both earlier full
+runs and their operational history. Public artifacts include dataset checksums;
+full source excerpts and instance credentials remain in ignored local files.
+
+Recompute published aggregates and verify the recorded procedure without an API
+key, from the repository root:
 
 ```bash
 uv sync --locked
-uv run python tools/verify_results.py results/gpt-4.1-mini results/gpt-5.4-mini
+uv run python tools/verify_results.py results/gpt-4.1-mini results/gpt-5.4-mini results/gpt-6.1-sol-medium-v3
+uv run python tools/verify_batches.py experiments/gpt61-medium-v2-50q results/gpt-6.1-sol-medium-v3
+uv run python tools/audit_agent_trace.py results/gpt-6.1-sol-medium-v3
 sha256sum -c results/artifacts.sha256
+sha256sum -c experiments/artifacts.sha256
 ```
 
-The fifteen offline tests cover data isolation, iterative retrieval, failures,
-budget behavior, event ranking, parser normalization, and incomplete-report
-handling. Event metrics were additionally checked against the pinned upstream
-implementation on eleven ranking edge cases; the nugget prompt matches upstream
-byte for byte.
+The 20 offline tests cover data isolation, iterative retrieval, Responses state,
+stopping checks, failures, budget behavior, event ranking, parser normalization,
+and incomplete reports. Event metrics were also checked against the pinned
+upstream implementation on eleven ranking edge cases; the nugget prompt matches
+upstream byte for byte.
 
-Dataset-derived artifacts are **CC BY-SA 4.0**, attributed to BEAM by Tavakoli et al.
-See [third-party notices](THIRD_PARTY_NOTICES.md). Results should not be presented
-as a controlled comparison with paper baselines that use different readers,
+Dataset-derived artifacts are **CC BY-SA 4.0**, attributed to BEAM by Tavakoli
+et al. See [third-party notices](THIRD_PARTY_NOTICES.md). These results do not
+establish a ranking against Hindsight or paper baselines using different readers,
 judges, memory construction, or inference budgets.

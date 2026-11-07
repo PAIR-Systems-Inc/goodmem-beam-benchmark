@@ -1,0 +1,13 @@
+{
+  "comparison": "gpt-6.1-sol-medium-v3 minus gpt-5.4-mini",
+  "primary_score_difference": 0.18235630734490232,
+  "paired_conversation_bootstrap_95ci": [
+    0.13951285186795898,
+    0.22524122571512953
+  ],
+  "bootstrap_samples": 10000,
+  "bootstrap_seed": 20261107,
+  "conversations": 10,
+  "questions_per_method": 200,
+  "scope": "Reader and harness both differ; development-tuned on BEAM, not held-out validation"
+}

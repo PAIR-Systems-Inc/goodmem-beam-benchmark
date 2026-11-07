@@ -1,5 +1,9 @@
 # Failure analysis: retrieval coverage and reader errors
 
+This historical diagnostic preceded GPT-6.1 harness development. The later full
+run scored 64.61%; see [current results](RESULTS.md). The observations below concern
+the original GPT-5.4-mini trajectories, not the new run.
+
 **Both matter.** Re-answering 100 questions with a different reader, using the
 exact same tool observations and no new retrieval, raised the score on those
 questions from **40.12% to 52.28%**. The original end-to-end results remain

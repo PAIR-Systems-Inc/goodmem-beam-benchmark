@@ -19,14 +19,20 @@ The downloaded release has **208,696 messages and 108,051,936 content tokens**
 under `o200k_base`. Individual conversations measure 9.66–12.93 million tokens
 with that tokenizer. “10M” denotes the authors' split, not a filter we apply.
 
-Measured on all 200 questions: **44.49% with GPT-4.1-mini** and **46.37% with
-GPT-5.4-mini** on the upstream primary metric. Both use the same GoodMem index
-and GPT-4.1-mini judge. See [RESULTS.md](RESULTS.md) for category scores, uncertainty,
-retrieval-loop statistics, downloadable evidence, and limitations, and
-[the methodology](docs/methodology.md) for scoring and data isolation.
+Measured on all 200 questions: **64.61% with GPT-6.1 Sol, medium reasoning**, up
+from 46.37% with GPT-5.4-mini and 44.49% with GPT-4.1-mini. The recall-adjusted
+score is **62.56%**. All runs use the same GoodMem index and GPT-4.1-mini judge;
+the GPT-6.1 run also changes the harness. These are mean rubric scores.
 
-[Failure analysis](FAILURE_ANALYSIS.md) separates missing evidence from reader
-errors, including a controlled replay with the exact same retrieved evidence.
+The full GPT-6.1 run uses one fixed configuration, reviewed every 25 questions.
+Its instructions are generic, but were developed while examining BEAM failures:
+this is a development evaluation, not held-out validation. See
+[RESULTS.md](RESULTS.md) for category scores, uncertainty, retrieval-loop
+statistics, artifacts, and limitations, and [the methodology](docs/methodology.md)
+for scoring and data isolation.
+
+The earlier [failure analysis](FAILURE_ANALYSIS.md) examines missing evidence and
+reader errors, including a replay with the exact same retrieved evidence.
 
 ## Run it
 
@@ -49,8 +55,9 @@ uv run beam export results/my-run
 All credentials live in environment variables or the ignored `.env` file.
 The provider calls go through GoodMem's proxy using its stored credentials.
 Model IDs are instance-specific. The measured configurations use Voyage 4 Large,
-Voyage Rerank 3, and either GPT-4.1-mini or GPT-5.4-mini as reader. The judge is
-GPT-4.1-mini in both runs.
+Voyage Rerank 3, and GPT-4.1-mini, GPT-5.4-mini, or GPT-6.1 Sol as reader. The judge
+is GPT-4.1-mini in all runs. The basic command above uses the initial harness;
+use the GPT-6.1 configuration below to reproduce the latest method.
 
 Set `GOODMEM_TLS_VERIFY=false` only for a trusted local instance with a development
 certificate. Normal connections verify TLS by default.
@@ -88,8 +95,19 @@ retry, and retains failed attempt files. Let the original answer pass finish fir
 
 The [GPT-6.1 medium experiment](docs/gpt61-experiment.md) uses the Responses API,
 requires evidence checks before stopping, and runs in reviewed batches of 25.
-Its settings are in `config/gpt61-medium-v2.toml`; the legacy defaults remain
-available for reproducing the original experiments.
+Its current frozen settings and generic instructions are in
+`config/gpt61-medium-v3.toml`; earlier development checkpoints are retained
+separately. The legacy defaults remain available for the original experiments.
+
+```bash
+BEAM_READER_MODEL=gpt-6.1-sol uv run python tools/run_batch.py \
+  --config config/gpt61-medium-v3.toml --run runs/my-gpt61-run --batch 0
+```
+
+Review the 25-question result before incrementing `--batch` (zero based, 0–7).
+The prompt receives no ability labels, rubric text, or hand-written queries for
+individual benchmark questions. Policies developed while inspecting BEAM are
+still benchmark-informed; the experiment does not establish held-out transfer.
 
 `--conversations 1,2` selects a subset and must appear before the command. Label
 such results as a subset; the report includes its exact denominator. A changed
@@ -105,16 +123,21 @@ the first answer and includes model descriptions, settings, and source hashes.
    in one space per conversation. GoodMem creates 3,200-character chunks with
    400-character overlap, embeds them, and stores the index.
 3. On every `search_memory` call, GoodMem retrieves 128 dense candidates and
-   reranks them to 12 chunks. `read_messages` can inspect up to 31 adjacent
+   reranks them to 12 chunks by default, or 20 in the GPT-6.1 profile.
+   `read_messages` can inspect up to 31 adjacent
    original messages from an immutable local copy of that same conversation.
 4. The reader chooses its next tool call after observing the previous result.
    By default it has up to 16 tool rounds, then a final answer opportunity.
-   It can finish earlier. The limits are experiment settings, not BEAM restrictions.
+   The GPT-6.1 profile allows 32 rounds and requires three distinct queries,
+   a cited factual checklist, and a fresh search/read after drafting. These are
+   experiment settings, not BEAM restrictions or guarantees of correct answers.
 5. The judge scores the frozen answers. Every decision, tool result, stop reason,
    provider token count, and per-question judgment is checkpointed under `runs/`.
 
-The model never receives the question category, reference answer, rubric, source
-annotations, user profile, or generation plans. Retrieval is scoped to the
+The model never receives the question category, reference answer, rubric, separate
+generation annotations, user profile, or generation plans. Canonical message text
+is preserved verbatim, including any inline markers present in the release.
+Retrieval is scoped to the
 question's conversation. It has no shell, internet, or cross-question memory tool.
 
 The active context is bounded by characters; if necessary, old tool-result bodies
@@ -137,7 +160,9 @@ questions prevent a complete overall score from being reported.
 ```bash
 uv run pytest -q
 uv run ruff check src tests tools
-uv run python tools/verify_results.py results/gpt-4.1-mini results/gpt-5.4-mini
+uv run python tools/verify_results.py results/gpt-4.1-mini results/gpt-5.4-mini results/gpt-6.1-sol-medium-v3
+uv run python tools/verify_batches.py experiments/gpt61-medium-v2-50q results/gpt-6.1-sol-medium-v3
+uv run python tools/audit_agent_trace.py results/gpt-6.1-sol-medium-v3
 ```
 
 The tests exercise iterative tool use, context limits, corpus ordering, read-tool

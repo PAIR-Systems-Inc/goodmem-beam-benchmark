@@ -1,0 +1,25 @@
+{
+  "questions": 200,
+  "observed_models": [
+    "gpt-6.1-sol"
+  ],
+  "reasoning_contexts": [
+    "all_turns"
+  ],
+  "reasoning_efforts": [
+    "medium"
+  ],
+  "procedure_counts": {
+    "search_memory": 1233,
+    "retrieved_hits": 24660,
+    "exact_source_matches": 24331,
+    "read_messages": 596,
+    "empty_reads": 0,
+    "submit_answer": 400,
+    "verified_submission": 200,
+    "context_evictions": 0,
+    "date_difference": 19,
+    "tool_input_errors": 4
+  },
+  "scope": "Procedure and reported usage audit; not an evidence-entailment audit"
+}

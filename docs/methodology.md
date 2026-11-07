@@ -64,6 +64,31 @@ use GPT-4.1-mini for grading. The requested model can differ from the display na
 of the GoodMem proxy registration; `requested_models` and the response traces
 record the actual choice.
 
+The GPT-6.1 Sol medium profile uses the Responses API and preserves every returned
+input-history item between calls, including opaque reasoning and assistant phase.
+Opaque reasoning is not logged or exported. The client verifies the returned
+reasoning effort. Its v3 configuration reranks to 20 chunks from the same 128
+candidates, allows 32 tool rounds, and retains up to 2.8 million characters of
+active history with 16,000 output tokens per call. It restores missing source
+headers only by exact matching within the already-retrieved parent block and adds
+a calendar-day calculator. There is no additional full-corpus search outside
+GoodMem; original-message reads remain bounded to 31 messages and 24,000 characters.
+
+Stopping requires three distinct normalized queries, a factual coverage checklist
+referencing returned evidence IDs, and a new search or message read after the
+first eligible answer draft. These controls verify procedure, not semantic
+completeness or truth. A final answer at the round limit is explicitly flagged.
+The judge and scoring remain unchanged. This profile changes both reader and
+harness, so comparison with the earlier runs does not isolate a model effect.
+
+Runs are reviewed in balanced batches of 25. All 200 v3 answers use the same
+generic prompt and configuration, following a 50-question v2 development run and
+a small context-retention diagnostic. After the first v3 batch, the decision was
+to continue unchanged through the remaining seven reviews. This is development
+on BEAM; it is not a held-out evaluation. No question-specific answer hints are
+added. See the
+[experiment record](gpt61-experiment.md) for configuration history and audits.
+
 ## Scoring
 
 For nine abilities, the unchanged `unified_llm_judge_base_prompt` from the pinned
