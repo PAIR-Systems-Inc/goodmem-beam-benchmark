@@ -1,0 +1,29 @@
+# Freeze this configuration before looking at test scores.
+[dataset]
+revision = "9b2096193fe74e2837e4713e483351e19817773c"
+conversations = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
+[ingest]
+# Pack adjacent messages, then let GoodMem chunk and embed the complete text.
+memory_chars = 48000
+chunk_chars = 3200
+overlap_chars = 400
+batch_size = 32
+workers = 4
+ready_timeout = 7200
+
+[retrieval]
+candidates = 128
+top_k = 12
+ef_search = 256
+
+[agent]
+max_steps = 16
+max_context_chars = 180000
+max_output_tokens = 5000
+temperature = 0.0
+workers = 4
+
+[judge]
+workers = 8
+max_output_tokens = 1200
