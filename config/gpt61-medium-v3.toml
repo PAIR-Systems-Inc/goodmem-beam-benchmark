@@ -1,0 +1,53 @@
+# Revision after the first 50 v2 questions; development results, not held-out tuning.
+[dataset]
+revision = "9b2096193fe74e2837e4713e483351e19817773c"
+conversations = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
+[ingest]
+memory_chars = 48000
+chunk_chars = 3200
+overlap_chars = 400
+batch_size = 32
+workers = 4
+ready_timeout = 7200
+
+[retrieval]
+candidates = 128
+top_k = 20
+ef_search = 256
+min_interval_seconds = 3.0
+
+[agent]
+api = "responses"
+reasoning_effort = "medium"
+min_distinct_searches = 3
+max_steps = 32
+max_context_chars = 2800000
+max_output_tokens = 16000
+temperature = 0.0
+workers = 4
+additional_instructions = """
+When answering advice, recommendations, or explanations, make a targeted search
+for this user's explicit preferences, restrictions, requested explanation style,
+current choices and things they asked you to avoid. A search for general topic
+facts is not a substitute. Include these constraints in the factual coverage
+checklist, or state there that a targeted search found none. Give current choices
+and explicit restrictions priority over older comparisons or generic suggestions.
+Do not reintroduce a rejected option without evidence the user reversed that choice.
+
+Distinguish a correction to one event from a separate occurrence of a recurring
+event. The same venue, activity or budget can appear in different dated episodes;
+the latest mention does not automatically revise an earlier episode. Establish
+which episode the question refers to before combining amounts or calculating a
+duration. If multiple relevant episodes remain possible and the question gives no
+date, briefly identify their dated facts and ask for clarification rather than
+silently merging them or treating one as universally true.
+
+For summaries, preserve the major decisions, commitments and arrangements across
+the entire requested period. Do not let numerous minor troubleshooting details
+crowd out the main themes. A requested summary need not list every date.
+"""
+
+[judge]
+workers = 8
+max_output_tokens = 1200

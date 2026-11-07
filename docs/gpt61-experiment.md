@@ -60,3 +60,27 @@ Source/configuration changes require a new run directory. Do not combine batches
 from different protocols into a claimed full score. Infrastructure-only retries
 preserve the frozen source/settings and successful answers. Both old complete
 evaluations and the 100-question replay remain unchanged.
+
+## Checkpoint and revision
+
+V2 was stopped after 50 questions for review. Batch 1 scored 58.02% versus 46.44%
+on the same GPT-5.4-mini questions; batch 2 scored 60.03% versus 40.08%. Combined:
+59.03% versus 43.26%. These are subset results, not a complete BEAM score. Source
+for this run is commit `933e494`.
+
+Long trajectories evicted older evidence. A diagnostic replay reconstructed the
+same complete tool history in both conditions, excluding original answers/drafts
+and private reasoning. Only the active-context limit differed. On two selected
+difficult questions, retaining evidence scored 61.14% versus 24.91% for a timeline,
+and 60% versus 60% for a summary. These are selected, single-trial diagnostics;
+they do not establish an overall improvement or isolate the original agent's
+reasoning state. `tools/replay_context.py` reproduces the experiment.
+
+V3 (`config/gpt61-medium-v3.toml`) raises the active-context limit from 600,000 to
+2,800,000 characters. It also adds generic instructions to search explicitly for
+user preferences/restrictions, distinguish recurring event instances from updates,
+and preserve major themes in summaries. No gold fact, question-specific answer,
+ability label or rubric is added. The model, reasoning effort, index, reranker,
+retrieval sizes, round limit and judge stay the same. V3 starts a separate run and
+is first compared on the same 25-question batch before continuing. This is further
+development on BEAM, not an independent test set.

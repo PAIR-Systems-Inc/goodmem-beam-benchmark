@@ -93,7 +93,7 @@ def answer(client, question, space, transcript, model_ids, config, retrieval, *,
     started = time.monotonic()
     minimum = config["min_distinct_searches"]
     items = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": question},
-             {"role": "developer", "content": f"Use at least {minimum} distinct search queries before submitting. You have {config['max_steps']} tool rounds."}]
+             {"role": "developer", "content": f"Use at least {minimum} distinct search queries before submitting. You have {config['max_steps']} tool rounds.\n" + config.get("additional_instructions", "")}]
     trace, seen, queries, evidence = [], set(), set(), set()
     searches = reads = dropped = rejected = 0
     first_submission_retrievals = None
