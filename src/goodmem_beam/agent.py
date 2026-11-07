@@ -60,6 +60,10 @@ def trim_context(messages, budget):
 def answer(client, question: str, space: str, transcript, model_ids: dict,
            config: dict, retrieval: dict, *, on_step=None):
     """Accept ONLY question text; labels and rubrics are structurally unavailable here."""
+    if config.get("api") == "responses":
+        from .agent_v2 import answer as responses_answer
+        return responses_answer(client, question, space, transcript, model_ids,
+                                config, retrieval, on_step=on_step)
     started = time.monotonic()
     messages = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": question}]
     trace, seen, used_queries = [], set(), set()

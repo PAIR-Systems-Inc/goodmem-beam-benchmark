@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import threading
 import time
 
 import httpx
@@ -25,6 +26,8 @@ def inference_parameters(model, max_tokens, temperature=0):
 
 class GoodMem:
     def __init__(self, conn: Connection):
+        self._retrieval_lock = threading.Lock()
+        self._last_retrieval = 0.0
         self.http = httpx.Client(
             base_url=conn.base_url.rstrip("/"), headers={"x-api-key": conn.api_key},
             verify=conn.verify, timeout=httpx.Timeout(180, connect=15),
@@ -102,7 +105,23 @@ class GoodMem:
         return {"message": message, "usage": data.get("usage", {}),
                 "model": data.get("model"), "finish_reason": choice["finish_reason"]}
 
-    def retrieve(self, query, space, reranker, *, candidates=128, top_k=12, ef_search=256):
+    def responses(self, registration, model, items, *, max_tokens, reasoning_effort,
+                  tools=None, tool_choice=None):
+        body = {"model": model, "input": items, "store": False,
+                "max_output_tokens": max_tokens,
+                "reasoning": {"effort": reasoning_effort, "context": "all_turns"}}
+        if tools:
+            body.update(tools=tools, parallel_tool_calls=False,
+                        tool_choice=tool_choice or "required")
+        data = self.post(f"/v1/proxy/llms/{registration}/responses", body)
+        if data.get("status") != "completed" or not data.get("output"):
+            raise GoodMemError(f"Incomplete Responses output: {data.get('status')}")
+        if data.get("reasoning", {}).get("effort") != reasoning_effort:
+            raise GoodMemError("Provider did not confirm the requested reasoning effort")
+        return data
+
+    def retrieve(self, query, space, reranker, *, candidates=128, top_k=12, ef_search=256,
+                 min_interval_seconds=0):
         body = {
             "message": query, "spaceKeys": [{"spaceId": space}],
             "requestedSize": candidates, "fetchMemory": True, "fetchMemoryContent": False,
@@ -114,6 +133,12 @@ class GoodMem:
             },
         }
         for attempt in range(5):
+            if min_interval_seconds:
+                # One shared client serves the workers; retries obey the same quota.
+                with self._retrieval_lock:
+                    time.sleep(max(0, self._last_retrieval + min_interval_seconds
+                                   - time.monotonic()))
+                    self._last_retrieval = time.monotonic()
             response = self.request("POST", "/v1/memories:retrieve", json=body,
                                     headers={"Accept": "application/x-ndjson"})
             try:

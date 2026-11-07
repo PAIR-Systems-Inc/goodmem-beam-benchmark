@@ -86,6 +86,11 @@ uv run beam --run runs/react-v1 judge
 The helper reads the original model/settings from the frozen run, records each
 retry, and retains failed attempt files. Let the original answer pass finish first.
 
+The [GPT-6.1 medium experiment](docs/gpt61-experiment.md) uses the Responses API,
+requires evidence checks before stopping, and runs in reviewed batches of 25.
+Its settings are in `config/gpt61-medium-v2.toml`; the legacy defaults remain
+available for reproducing the original experiments.
+
 `--conversations 1,2` selects a subset and must appear before the command. Label
 such results as a subset; the report includes its exact denominator. A changed
 index configuration requires a new index directory. Changing the reader, prompts,

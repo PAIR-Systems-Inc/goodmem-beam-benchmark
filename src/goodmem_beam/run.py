@@ -45,13 +45,22 @@ def freeze(client, model_ids, config, index, run_dir, ids):
     for key, kind in [("embedder", "embedders"), ("reranker", "rerankers"), ("reader", "llms"), ("judge", "llms")]:
         m = client.get(f"/v1/{kind}/{model_ids[key]}")
         model_names[key] = {k: m.get(k) for k in ["modelIdentifier", "providerType", "displayName"]}
+    system, tools = SYSTEM, TOOLS
+    reader_inference = inference_parameters(model_ids["reader_model"],
+                                           config["agent"]["max_output_tokens"],
+                                           config["agent"]["temperature"])
+    if config["agent"].get("api") == "responses":
+        from .agent_v2 import SYSTEM as system
+        from .agent_v2 import TOOLS as tools
+        reader_inference = {"api": "responses", "store": False,
+                            "max_output_tokens": config["agent"]["max_output_tokens"],
+                            "reasoning": {"effort": config["agent"]["reasoning_effort"],
+                                          "context": "all_turns"}}
     protocol = {"config": config, "models": model_names, "model_ids": model_ids,
                 "requested_models": {"reader": model_ids["reader_model"], "judge": model_ids["judge_model"]},
-                "reader_inference": inference_parameters(
-                    model_ids["reader_model"], config["agent"]["max_output_tokens"],
-                    config["agent"]["temperature"]),
+                "reader_inference": reader_inference,
                 "index_fingerprint": index["fingerprint"], "conversations": ids,
-                "agent_prompt_sha256": digest(SYSTEM), "tools_sha256": digest(TOOLS),
+                "agent_prompt_sha256": digest(system), "tools_sha256": digest(tools),
                 "judge_prompt_sha256": digest(NUGGET_PROMPT)}
     server = client.get("/v1/system/info")
     protocol["server"] = {k: server.get(k) for k in ["version", "gitDescribe", "dirty"]}
@@ -66,10 +75,14 @@ def freeze(client, model_ids, config, index, run_dir, ids):
     return protocol
 
 
-def run_answers(client, model_ids, cfg, prepared, index_dir, run_dir, ids):
+def run_answers(client, model_ids, cfg, prepared, index_dir, run_dir, ids, *, question_ids=None):
     index = read_json(index_dir / "index.json")
     freeze(client, model_ids, cfg, index, run_dir, ids)
     questions = all_questions(prepared, ids)
+    if question_ids is not None:
+        if set(question_ids) - {q["id"] for q in questions}:
+            raise ValueError("Requested unknown question IDs")
+        questions = [q for q in questions if q["id"] in question_ids]
 
     def one(q):
         path = run_dir / "answers" / filename(q)
@@ -95,7 +108,7 @@ def run_answers(client, model_ids, cfg, prepared, index_dir, run_dir, ids):
             print("answer", *future.result(), flush=True)
 
 
-def run_judge(client, model_ids, cfg, prepared, run_dir, ids):
+def run_judge(client, model_ids, cfg, prepared, run_dir, ids, *, question_ids=None):
     protocol = read_json(run_dir / "protocol.json")
     if (any(protocol["model_ids"][k] != model_ids[k] for k in ["judge", "judge_model"])
             or protocol["conversations"] != ids or protocol["config"]["judge"] != cfg["judge"]
@@ -124,5 +137,7 @@ def run_judge(client, model_ids, cfg, prepared, run_dir, ids):
         return q["id"], result["status"]
 
     with ThreadPoolExecutor(max_workers=cfg["judge"]["workers"]) as pool:
-        for future in as_completed([pool.submit(one, q) for q in all_questions(prepared, ids)]):
+        selected = [q for q in all_questions(prepared, ids)
+                    if question_ids is None or q["id"] in question_ids]
+        for future in as_completed([pool.submit(one, q) for q in selected]):
             print("judge", *future.result(), flush=True)

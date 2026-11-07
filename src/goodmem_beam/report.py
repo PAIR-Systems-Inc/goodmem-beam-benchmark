@@ -66,6 +66,9 @@ def report(prepared: Path, run_dir: Path, export_dir: Path | None = None):
         "reader_usage": {k: sum(o["answer"]["usage"][k] for o in outcomes)
                          for k in ["prompt_tokens", "completion_tokens"]},
     }
+    for key in ["reasoning_tokens", "cached_tokens"]:
+        if any(key in o["answer"]["usage"] for o in outcomes):
+            summary["reader_usage"][key] = sum(o["answer"]["usage"].get(key, 0) for o in outcomes)
     write_json(run_dir / "summary.json", summary)
     if export_dir:
         export_dir.mkdir(parents=True, exist_ok=True)

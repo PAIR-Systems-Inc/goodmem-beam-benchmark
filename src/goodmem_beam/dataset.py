@@ -147,6 +147,27 @@ class ChatReader:
     def __init__(self, path: Path):
         self.path = path
 
+    def locate_chunk(self, start, end, text):
+        """Restore source headers only when the retrieved chunk matches exactly.
+
+        Chunk boundaries can omit a message's header. This does not search the
+        corpus: it checks only the already-retrieved parent block's message range.
+        """
+        with sqlite3.connect(f"file:{self.path}?mode=ro", uri=True) as db:
+            rows = db.execute("SELECT id,text FROM messages WHERE id BETWEEN ? AND ? ORDER BY id",
+                              (start, end)).fetchall()
+        block = "\n\n".join(value for _, value in rows)
+        needle = text.strip()
+        offset = block.find(needle) if needle else -1
+        if offset < 0 or block.find(needle, offset + 1) >= 0:
+            return {"exact_match": False, "messages": []}
+        matched, position = [], 0
+        for mid, value in rows:
+            if position < offset + len(needle) and position + len(value) > offset:
+                matched.append({"message_id": mid, "header": value.split("\n", 1)[0]})
+            position += len(value) + 2
+        return {"exact_match": True, "messages": matched}
+
     def read(self, start: int, end: int, char_budget=24000):
         if start < 0 or end < start or end - start > 30:
             raise ValueError("Read a range of at most 31 messages, with nonnegative IDs")

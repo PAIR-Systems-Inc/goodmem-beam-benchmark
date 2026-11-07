@@ -1,0 +1,33 @@
+# Development configuration after inspecting the earlier BEAM results.
+[dataset]
+revision = "9b2096193fe74e2837e4713e483351e19817773c"
+conversations = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
+[ingest]
+memory_chars = 48000
+chunk_chars = 3200
+overlap_chars = 400
+batch_size = 32
+workers = 4
+ready_timeout = 7200
+
+[retrieval]
+candidates = 128
+top_k = 20
+ef_search = 256
+min_interval_seconds = 3.0
+
+[agent]
+api = "responses"
+reasoning_effort = "medium"
+min_distinct_searches = 3
+max_steps = 32
+max_context_chars = 600000
+max_output_tokens = 16000
+# Only used by the legacy Chat Completions path; omitted from Responses requests.
+temperature = 0.0
+workers = 4
+
+[judge]
+workers = 8
+max_output_tokens = 1200
