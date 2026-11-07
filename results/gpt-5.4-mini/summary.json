@@ -1,0 +1,60 @@
+{
+  "complete": true,
+  "expected_questions": 200,
+  "scored_questions": 200,
+  "errors_or_missing": [],
+  "primary_score": 0.46373081032685265,
+  "recall_adjusted_score": 0.4440598716458141,
+  "conversation_bootstrap_95ci": [
+    0.4117395029187132,
+    0.517137325417987
+  ],
+  "per_ability": {
+    "abstention": 0.7,
+    "contradiction_resolution": 0.4125,
+    "event_ordering": 0.23216921437963778,
+    "information_extraction": 0.55,
+    "instruction_following": 0.55,
+    "knowledge_update": 0.75,
+    "multi_session_reasoning": 0.21833333333333332,
+    "preference_following": 0.5625,
+    "summarization": 0.5868055555555556,
+    "temporal_reasoning": 0.075
+  },
+  "per_ability_recall_adjusted": {
+    "abstention": 0.7,
+    "contradiction_resolution": 0.4125,
+    "event_ordering": 0.03545982756925205,
+    "information_extraction": 0.55,
+    "instruction_following": 0.55,
+    "knowledge_update": 0.75,
+    "multi_session_reasoning": 0.21833333333333332,
+    "preference_following": 0.5625,
+    "summarization": 0.5868055555555556,
+    "temporal_reasoning": 0.075
+  },
+  "per_conversation": {
+    "1": 0.4359265350877193,
+    "2": 0.45082010582010584,
+    "3": 0.4200243664717349,
+    "4": 0.4515625,
+    "5": 0.3168065953654189,
+    "6": 0.5328968253968254,
+    "7": 0.5594086956521739,
+    "8": 0.3693452380952381,
+    "9": 0.4852586206896552,
+    "10": 0.6152586206896552
+  },
+  "metric": "Mean of conversation/ability means; event ordering uses upstream tau_norm",
+  "searches_mean": 1.24,
+  "searches_max": 4,
+  "reads_mean": 0.06,
+  "answer_seconds_mean": 6.855983375615397,
+  "stop_reasons": {
+    "answered": 200
+  },
+  "reader_usage": {
+    "prompt_tokens": 4158777,
+    "completion_tokens": 40050
+  }
+}

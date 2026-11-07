@@ -38,6 +38,14 @@ offline LLM fact extraction or LIGHT scratchpad. The agent can issue new semanti
 queries and read nearby messages after each observation. Repeated retrieval is
 part of the evaluated method. BEAM does not impose a single-retrieval restriction.
 
+Temporal position is already retained at indexing: each source message has a
+chronological ID and any explicit chat date, while each memory carries its block
+number and start/end message IDs. Retrieval returns those fields plus the chunk
+sequence number. The current range-reading tool can inspect neighboring messages.
+Sequence records when something was mentioned, not necessarily when the described
+event occurred. Explicit before/after search constraints and assembling a dated
+event timeline are possible follow-up experiments, not features evaluated here.
+
 GoodMem performs dense retrieval and registered cross-encoder reranking. HNSW uses
 `efSearch=256`, relaxed iterative scanning, and `maxScanTuples=100000`. The endpoint
 must return a complete rerank result set. Provider or stream failures are recorded

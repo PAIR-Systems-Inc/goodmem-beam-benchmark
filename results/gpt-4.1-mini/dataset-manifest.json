@@ -1,0 +1,131 @@
+{
+  "dataset": "Mohammadta/BEAM-10M",
+  "revision": "9b2096193fe74e2837e4713e483351e19817773c",
+  "tokenizer": "o200k_base",
+  "conversations": [
+    {
+      "id": "1",
+      "messages": 19895,
+      "memory_blocks": 1094,
+      "content_chars": 49336916,
+      "content_tokens": 10885382,
+      "chat_sha256": "29c23fda0621c8d3da5abffc0e4f2269d79db98232e0971ddf213c2b475a172c",
+      "blocks_sha256": "bec7e9dd1b4236a616de1f0697b326cc799cb6acb76e8829592c2a1f55166821",
+      "questions_sha256": "9556db9bea96942aa08e65590ec52eb345472fc9b078187fcf116c58944d5b03",
+      "questions": 20,
+      "category": "Coding"
+    },
+    {
+      "id": "2",
+      "messages": 19057,
+      "memory_blocks": 1044,
+      "content_chars": 46841613,
+      "content_tokens": 10271319,
+      "chat_sha256": "ef11f410aa8cba2c3ecdaea3ae5be8a24ce19653f178e9c323e91135171ddb5e",
+      "blocks_sha256": "40d8ebd348d1f36c05fc5ddbb2871fd68cdee293f0af05694fcab26cdca36a21",
+      "questions_sha256": "00fc3139d8484d92bf47d17f48013163efe774771b412debfd30739fdb9967d3",
+      "questions": 20,
+      "category": "Coding"
+    },
+    {
+      "id": "3",
+      "messages": 20192,
+      "memory_blocks": 1125,
+      "content_chars": 50579324,
+      "content_tokens": 11088072,
+      "chat_sha256": "89901e27a7c0623f890a54cc60c72070f2f7c6688ce47f79ca7122ce3d9b151a",
+      "blocks_sha256": "7f391cedb033f54299fa4cf06a0761aeb6a64f33151bc3c43bebe3c53cd73ccf",
+      "questions_sha256": "296c41a88343e07e0df2009e7a330474f0a6d3dcea282f70829a934bca15a52a",
+      "questions": 20,
+      "category": "Coding"
+    },
+    {
+      "id": "4",
+      "messages": 19202,
+      "memory_blocks": 876,
+      "content_chars": 39558125,
+      "content_tokens": 12927187,
+      "chat_sha256": "d99828cc06a271b164804e2949c5c684c81f9e9a9504df3501240847b2e24ddf",
+      "blocks_sha256": "640c13cfd9b2c4bd057a8c842cf381770ff5edd4ce3c6e000606daac8b54f0d6",
+      "questions_sha256": "ebbacc460c357343c951a9d909dcb98b069f9cfb4f08f010a25c83ef8683d9dc",
+      "questions": 20,
+      "category": "Math"
+    },
+    {
+      "id": "5",
+      "messages": 18760,
+      "memory_blocks": 743,
+      "content_chars": 33875079,
+      "content_tokens": 10488652,
+      "chat_sha256": "350cee696e58bdcb728e788953cceab496449429003fc11639914e651caeacf7",
+      "blocks_sha256": "5e96226b5f5be9387409b43baaa1a95c5842cb725cb133d142a44d4e2cd530cb",
+      "questions_sha256": "fdb8b92a8458a23814cd190681860555112f54e37b77fa4b9395482fd8c31197",
+      "questions": 20,
+      "category": "Math"
+    },
+    {
+      "id": "6",
+      "messages": 19958,
+      "memory_blocks": 995,
+      "content_chars": 45031280,
+      "content_tokens": 9659968,
+      "chat_sha256": "6a062180fc75a746611aec18737a05f3397b0488ff7442501c90c4042e7edc23",
+      "blocks_sha256": "8261aaec6a837fafc42c9260c3e7ab10e697affc3dcb23e96badbf0d6e04dd35",
+      "questions_sha256": "8bf84e6ae6e826e986c5430eac5bebe4746f6539fb5ff6a64e0b9146f8729888",
+      "questions": 20,
+      "category": "Education & Learning"
+    },
+    {
+      "id": "7",
+      "messages": 22652,
+      "memory_blocks": 1104,
+      "content_chars": 49471699,
+      "content_tokens": 10702603,
+      "chat_sha256": "2f44bcfceadf80fd0c65d6eb5654fc33d65321ea3d668b4a3915b7fb3a5b54a3",
+      "blocks_sha256": "cb2436404ef837d887aa6c17db5530842c7efd35a3ff5c67f6b629ead6c5b5f5",
+      "questions_sha256": "43a5d65c2f3bde52804826ca32daf6b3384043c4acdca53688e0869c484472a2",
+      "questions": 20,
+      "category": "Career and Professional Development"
+    },
+    {
+      "id": "8",
+      "messages": 22560,
+      "memory_blocks": 1033,
+      "content_chars": 46441188,
+      "content_tokens": 10136197,
+      "chat_sha256": "818e7ac4cfff1d7c50d5512f7e45029b2b0d757c71fd267351c4249949e4e36d",
+      "blocks_sha256": "f6e98f4194edd1901f7daf9d5cbec5b02adac87c0ba763eb463c40a7147e2c7e",
+      "questions_sha256": "e91d03c2f2671e9b05320568b2d50ac83a8b93734e429cc27e35ad5acdcac473",
+      "questions": 20,
+      "category": "Trip Planning"
+    },
+    {
+      "id": "9",
+      "messages": 22704,
+      "memory_blocks": 1015,
+      "content_chars": 45545492,
+      "content_tokens": 9794313,
+      "chat_sha256": "26f1d5b9fe2e42fee3ab31e044eb6f78102e817ebb91884a508b3d4e6e8e7bbe",
+      "blocks_sha256": "ec288a747cc3b6bee056b740831dd9edaabdb0646ca3d59986fbebc97d0afc9b",
+      "questions_sha256": "3fa456e606b5ff5c17f9b1c72d1c73fe1097cf2bfda9c83be8c2be9205946fde",
+      "questions": 20,
+      "category": "Trip Planning"
+    },
+    {
+      "id": "10",
+      "messages": 23716,
+      "memory_blocks": 1269,
+      "content_chars": 56797788,
+      "content_tokens": 12098243,
+      "chat_sha256": "7fb76c7ece06464da77f577a6c2be3b86fa343c606cb6d6a8c52999ef55a70c5",
+      "blocks_sha256": "6b1409e8a276d9a089741bc7f879d8fc1a83206ee33946bd1bec9077e946b8ff",
+      "questions_sha256": "c35ed5210a71086b768ec47925e9e6c4161a77bb4a3d8d3dadc51b6982ccb867",
+      "questions": 20,
+      "category": "Event Planning"
+    }
+  ],
+  "files": {
+    "10M-00000-of-00002.parquet": "31d96fd47ec56221d202e68792f26c00e49467dd4b36ee105c36ebd19ef78ad5",
+    "10M-00001-of-00002.parquet": "a4f13fe25af51d57405ae41008689c31d1421377f3efde56a024b441deb2ee65"
+  }
+}

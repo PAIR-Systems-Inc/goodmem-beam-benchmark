@@ -1,0 +1,95 @@
+{
+  "config": {
+    "dataset": {
+      "revision": "9b2096193fe74e2837e4713e483351e19817773c",
+      "conversations": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ]
+    },
+    "ingest": {
+      "memory_chars": 48000,
+      "chunk_chars": 3200,
+      "overlap_chars": 400,
+      "batch_size": 32,
+      "workers": 4,
+      "ready_timeout": 7200
+    },
+    "retrieval": {
+      "candidates": 128,
+      "top_k": 12,
+      "ef_search": 256
+    },
+    "agent": {
+      "max_steps": 16,
+      "max_context_chars": 180000,
+      "max_output_tokens": 5000,
+      "temperature": 0.0,
+      "workers": 4
+    },
+    "judge": {
+      "workers": 8,
+      "max_output_tokens": 1200
+    }
+  },
+  "models": {
+    "embedder": {
+      "modelIdentifier": "voyage-4-large",
+      "providerType": "VOYAGE",
+      "displayName": "Voyage 4 Large"
+    },
+    "reranker": {
+      "modelIdentifier": "rerank-3",
+      "providerType": "VOYAGE",
+      "displayName": "voyage-rerank-3"
+    },
+    "reader": {
+      "modelIdentifier": "gpt-4.1-mini",
+      "providerType": "OPENAI",
+      "displayName": "locomo-reader-gpt-4.1-mini"
+    },
+    "judge": {
+      "modelIdentifier": "gpt-4.1-mini",
+      "providerType": "OPENAI",
+      "displayName": "locomo-reader-gpt-4.1-mini"
+    }
+  },
+  "requested_models": {
+    "reader": "gpt-4.1-mini",
+    "judge": "gpt-4.1-mini"
+  },
+  "reader_inference": {
+    "max_tokens": 5000,
+    "temperature": 0.0
+  },
+  "index_fingerprint": "ce75311dde612ae884e61bc311cb3a232332340860e91f0564213dd7715ca52b",
+  "conversations": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10"
+  ],
+  "agent_prompt_sha256": "caa637b455d215794d042050f74c2b6e147923ef63ff9cd80c0dd7dc1bd9ca0f",
+  "tools_sha256": "b733cba33e80638463f7c8b3d383feccb89c87526f2f93237aa6dcf83c5648d9",
+  "judge_prompt_sha256": "bde238f9242c06c1b0789894bd1e0273ba7e84986a9e0b7986a97c18c9b15d1e",
+  "server": {
+    "version": "0.0.0-dev",
+    "gitDescribe": "clients/v2/go/v0.1.14-42-gf9b737042-dirty",
+    "dirty": true
+  },
+  "source_sha256": "7d038b13f09366a05a8ea8136284f9784b82099e0c35af7ade905958e4ed80b9"
+}

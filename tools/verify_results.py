@@ -10,6 +10,7 @@ from statistics import mean
 import numpy as np
 
 from goodmem_beam.dataset import ABILITIES
+from goodmem_beam.judge import event_metrics, parse_json
 
 
 def verify(directory):
@@ -25,12 +26,27 @@ def verify(directory):
     assert summary["complete"] and not summary["errors_or_missing"]
     assert summary["scored_questions"] == len(rows)
     assert all(r["answer"]["status"] == r["judgment"]["status"] == "ok" for r in rows)
+    assert {s["id"] for s in traces} == {r["id"] for r in rows}
     tools = Counter((step["id"], observation["tool"])
                     for step in traces for observation in step["observations"]
                     if "tool_input_error" not in observation["result"])
     for row in rows:
         assert tools[row["id"], "search_memory"] == row["answer"]["searches"]
         assert tools[row["id"], "read_messages"] == row["answer"]["reads"]
+        judgment = row["judgment"]
+        if row["ability"] == "event_ordering":
+            metrics = event_metrics(row["rubric"], judgment["aligned"])
+            assert metrics == judgment["event_metrics"]
+            assert judgment["score"] == metrics["tau_norm"]
+            assert judgment["recall_adjusted_score"] == metrics["final_score"]
+        else:
+            assert len(judgment["nuggets"]) == len(row["rubric"])
+            for nugget in judgment["nuggets"]:
+                parsed, normalized = parse_json(nugget["raw"])
+                assert parsed["score"] == nugget["score"]
+                assert normalized == nugget.get("json_escape_normalized", False)
+            assert judgment["score"] == mean(n["score"] for n in judgment["nuggets"])
+            assert judgment["recall_adjusted_score"] == judgment["score"]
     for field, metric in [("per_ability", "score"),
                           ("per_ability_recall_adjusted", "recall_adjusted_score")]:
         expected_scores = {a: mean(r["judgment"][metric] for r in rows if r["ability"] == a)
@@ -38,6 +54,13 @@ def verify(directory):
         assert summary[field] == expected_scores
     assert summary["primary_score"] == mean(summary["per_ability"].values())
     assert summary["recall_adjusted_score"] == mean(summary["per_ability_recall_adjusted"].values())
+    for field, key in [("searches_mean", "searches"), ("reads_mean", "reads"),
+                       ("answer_seconds_mean", "seconds")]:
+        assert summary[field] == mean(r["answer"][key] for r in rows)
+    assert summary["searches_max"] == max(r["answer"]["searches"] for r in rows)
+    assert summary["stop_reasons"] == Counter(r["answer"]["stop_reason"] for r in rows)
+    for key in ("prompt_tokens", "completion_tokens"):
+        assert summary["reader_usage"][key] == sum(r["answer"]["usage"][key] for r in rows)
     per_conversation = {cid: mean(r["judgment"]["score"] for r in rows if r["conversation_id"] == cid)
                         for cid in protocol["conversations"]}
     np.testing.assert_allclose(list(per_conversation.values()),

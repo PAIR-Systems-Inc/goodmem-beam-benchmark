@@ -1,0 +1,16 @@
+99bdb93a9c5c4f268e8ccab4031dc5d3b409e42d9882177005ff4b24e6d9afe7  results/comparison.json
+97198867a77f3ffdcc8aae1957513e4ef808efc245bc086eab805ca89c1c7aed  results/gpt-4.1-mini/dataset-manifest.json
+c21064e5107da2360f9b259ecbd7e552ae4b6cfdd02bc8ef6e41ff597d7ae099  results/gpt-4.1-mini/operations.json
+215ec53bc5b882ff542358bc423165b5227381dada06b43a10d3ddf12152b3c8  results/gpt-4.1-mini/outcomes.jsonl.gz
+365c5dbc10158413d3b4b35cbafd679993224169f9d0b2eb770dc73148fb565c  results/gpt-4.1-mini/protocol.json
+20bcbeb5cffb5f3b6cdecae391ec208786a2798ba19b834cdc92c21ab7ad18ec  results/gpt-4.1-mini/retrieval-traces.jsonl.gz
+d2def599274dacf4af6058a6646dffdcad7bb9d510e2ec8a4d844ff6671eeb15  results/gpt-4.1-mini/retry-history.jsonl
+0dd61dd8473a81b2c874f95bd938af851afb01ad31aef6b3eebdbe9a9a5f1498  results/gpt-4.1-mini/summary.json
+97198867a77f3ffdcc8aae1957513e4ef808efc245bc086eab805ca89c1c7aed  results/gpt-5.4-mini/dataset-manifest.json
+13b2a4bdd8fa74cdc26f5c4d36b98de4ed94a228a08f4f5de88ef0b5741ead8f  results/gpt-5.4-mini/operations.json
+d30fff8ec29425df66537a5c14c7597737d926ac4c9ce46f01c3dab4740766e9  results/gpt-5.4-mini/outcomes.jsonl.gz
+d9b11e08c114aae7769ff05b749b4a408ff6ec3fafa314020501328eb77634de  results/gpt-5.4-mini/protocol.json
+0dba17cfec1f3c993c5e0ddeb64dea5e18eba98d6a53fe665677a7abf43114e3  results/gpt-5.4-mini/retrieval-traces.jsonl.gz
+822481780e00a5a85e1a54a079f8112be8fe8dda54d623ed96e55f9a1b85d0ba  results/gpt-5.4-mini/retry-history.jsonl
+bcef2c7ac9569bc0524a0439f1c8733f15dc8de314a6bf58ae12839b5aec6f55  results/gpt-5.4-mini/summary.json
+7fb9c7a64215def49bc60f67bffe42e1a480ddd9d40dc5606c80245f5425d88e  results/index-verification.json

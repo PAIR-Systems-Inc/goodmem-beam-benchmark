@@ -1,0 +1,12 @@
+{
+  "comparison": "gpt-5.4-mini minus gpt-4.1-mini",
+  "primary_score_difference": 0.018854569145075238,
+  "paired_conversation_bootstrap_95ci": [
+    -0.02801781730507591,
+    0.06729618145554332
+  ],
+  "bootstrap_samples": 10000,
+  "bootstrap_seed": 20261107,
+  "conversations": 10,
+  "questions_per_reader": 200
+}

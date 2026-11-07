@@ -19,7 +19,10 @@ The downloaded release has **208,696 messages and 108,051,936 content tokens**
 under `o200k_base`. Individual conversations measure 9.66–12.93 million tokens
 with that tokenizer. “10M” denotes the authors' split, not a filter we apply.
 
-See [RESULTS.md](RESULTS.md) for measured results and limitations, and
+Measured on all 200 questions: **44.49% with GPT-4.1-mini** and **46.37% with
+GPT-5.4-mini** on the upstream primary metric. Both use the same GoodMem index
+and GPT-4.1-mini judge. See [RESULTS.md](RESULTS.md) for category scores, uncertainty,
+retrieval-loop statistics, downloadable evidence, and limitations, and
 [the methodology](docs/methodology.md) for scoring and data isolation.
 
 ## Run it
@@ -42,8 +45,9 @@ uv run beam export results/my-run
 
 All credentials live in environment variables or the ignored `.env` file.
 The provider calls go through GoodMem's proxy using its stored credentials.
-Model IDs are instance-specific. The measured configuration uses Voyage 4 Large,
-Voyage Rerank 3, and GPT-4.1-mini as both reader and the upstream judge model.
+Model IDs are instance-specific. The measured configurations use Voyage 4 Large,
+Voyage Rerank 3, and either GPT-4.1-mini or GPT-5.4-mini as reader. The judge is
+GPT-4.1-mini in both runs.
 
 Set `GOODMEM_TLS_VERIFY=false` only for a trusted local instance with a development
 certificate. Normal connections verify TLS by default.
@@ -62,6 +66,11 @@ uv run beam --run runs/react-v1 judge
 uv run beam --run runs/react-v1 report
 uv run beam --run runs/react-v1 export results/react-v1
 ```
+
+For the second reader, set `BEAM_READER_MODEL=gpt-5.4-mini` and use a new run
+directory. `BEAM_READER_ID` must identify a proxy registration whose credentials
+can access that model. The harness uses `reasoning_effort=none` for this model's
+Chat Completions function calls; this condition is recorded in the protocol.
 
 If provider throttling leaves answer errors after a pass, retry only those answers
 with paced retrieval, then rerun grading. Successful answers stay fixed:
@@ -119,7 +128,8 @@ questions prevent a complete overall score from being reported.
 
 ```bash
 uv run pytest -q
-uv run ruff check src tests
+uv run ruff check src tests tools
+uv run python tools/verify_results.py results/gpt-4.1-mini results/gpt-5.4-mini
 ```
 
 The tests exercise iterative tool use, context limits, corpus ordering, read-tool

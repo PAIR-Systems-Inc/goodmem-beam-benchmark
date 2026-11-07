@@ -1,0 +1,44 @@
+{
+  "answer_source_commit": "b821af2444b39b105c28b506bcbdec80f7b7e514",
+  "final_scoring_parser_commit": "ad2803118d984aa35b66a80cde6cfc2ed0012108",
+  "parser_note": "Only invalid backslash escapes in JSON strings were normalized. Original raw responses and numeric scores are preserved; successful judgments were reused.",
+  "normalized_nuggets": [
+    {
+      "id": "4:summarization:1",
+      "rubric_index": 2,
+      "score": 1.0,
+      "raw_sha256": "bf6b4a60ce47136fc535b606cd69a965593540b9e3b05a313ef7ef6a4fbe71f8"
+    }
+  ],
+  "initial_answers_ok": 145,
+  "initial_answers_failed": 55,
+  "failed_answer_attempts": 55,
+  "failure_cause": "Voyage reranking HTTP 429",
+  "retry_successes": 55,
+  "final_answer_errors": 0,
+  "final_judgment_errors": 0,
+  "reader_response_models": {
+    "gpt-5.4-mini-2026-03-17": 469
+  },
+  "judge_response_models": {
+    "gpt-4.1-mini-2025-04-14": 3044
+  },
+  "search_count_distribution": {
+    "1": 161,
+    "2": 31,
+    "3": 7,
+    "4": 1
+  },
+  "read_count_distribution": {
+    "0": 188,
+    "1": 12
+  },
+  "questions_with_multiple_searches": 39,
+  "questions_with_reads": 12,
+  "context_compactions": 0,
+  "undefined_event_tau_questions": [],
+  "recoverable_tool_input_errors": {
+    "Read a range of at most 31 messages, with nonnegative IDs": 9
+  },
+  "max_tool_rounds_used": 5
+}
