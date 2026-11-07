@@ -14,6 +14,15 @@ class GoodMemError(RuntimeError):
     pass
 
 
+def inference_parameters(model, max_tokens, temperature=0):
+    if model.startswith(("gpt-5", "o3", "o4")):
+        # GPT-5.4-mini's Chat Completions API only supports function tools
+        # with reasoning_effort=none. Keep this setting for all its rounds.
+        effort = "none" if model.startswith("gpt-5.4-mini") else "low"
+        return {"max_completion_tokens": max_tokens, "reasoning_effort": effort}
+    return {"max_tokens": max_tokens, "temperature": temperature}
+
+
 class GoodMem:
     def __init__(self, conn: Connection):
         self.http = httpx.Client(
@@ -75,11 +84,7 @@ class GoodMem:
     def chat(self, registration, model, messages, *, max_tokens=5000, temperature=0,
              tools=None, tool_choice=None):
         body = {"model": model, "messages": messages}
-        if model.startswith(("gpt-5", "o3", "o4")):
-            body["max_completion_tokens"] = max_tokens
-            body["reasoning_effort"] = "low"
-        else:
-            body.update(max_tokens=max_tokens, temperature=temperature)
+        body.update(inference_parameters(model, max_tokens, temperature))
         if tools:
             body.update(tools=tools, parallel_tool_calls=False)
             if tool_choice:

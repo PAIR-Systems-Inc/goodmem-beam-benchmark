@@ -7,6 +7,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from .agent import SYSTEM, TOOLS, answer
+from .client import inference_parameters
 from .dataset import ChatReader
 from .io import append_json, digest, read_json, write_json
 from .judge import NUGGET_PROMPT, Judge
@@ -46,6 +47,9 @@ def freeze(client, model_ids, config, index, run_dir, ids):
         model_names[key] = {k: m.get(k) for k in ["modelIdentifier", "providerType", "displayName"]}
     protocol = {"config": config, "models": model_names, "model_ids": model_ids,
                 "requested_models": {"reader": model_ids["reader_model"], "judge": model_ids["judge_model"]},
+                "reader_inference": inference_parameters(
+                    model_ids["reader_model"], config["agent"]["max_output_tokens"],
+                    config["agent"]["temperature"]),
                 "index_fingerprint": index["fingerprint"], "conversations": ids,
                 "agent_prompt_sha256": digest(SYSTEM), "tools_sha256": digest(TOOLS),
                 "judge_prompt_sha256": digest(NUGGET_PROMPT)}
