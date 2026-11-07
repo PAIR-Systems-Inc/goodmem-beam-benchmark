@@ -1,0 +1,41 @@
+{
+  "questions": 100,
+  "new_retrievals": 0,
+  "reference_information_given_to_reader": false,
+  "original_score": 0.40116666666666667,
+  "replay_score": 0.5228333333333334,
+  "per_ability": {
+    "contradiction_resolution": {
+      "original": 0.4125,
+      "replay": 0.5875
+    },
+    "information_extraction": {
+      "original": 0.55,
+      "replay": 0.725
+    },
+    "knowledge_update": {
+      "original": 0.75,
+      "replay": 0.775
+    },
+    "multi_session_reasoning": {
+      "original": 0.21833333333333332,
+      "replay": 0.31416666666666665
+    },
+    "temporal_reasoning": {
+      "original": 0.075,
+      "replay": 0.2125
+    }
+  },
+  "improved_questions": 26,
+  "worsened_questions": 11,
+  "paired_difference_95ci": [
+    0.04083333333333333,
+    0.225
+  ],
+  "bootstrap_samples": 10000,
+  "bootstrap_seed": 20261107,
+  "actual_reader_models": {
+    "gpt-5.2-2025-12-11": 100
+  },
+  "limitations": "Final-reader/model/reasoning/instruction change with fixed earlier tool trajectory, not a full end-to-end run. Judge sampling variability is not estimated."
+}

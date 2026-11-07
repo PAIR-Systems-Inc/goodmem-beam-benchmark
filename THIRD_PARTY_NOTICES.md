@@ -40,5 +40,5 @@ SOFTWARE.
 BEAM-10M by Mohammad Tavakoli et al. is distributed separately under
 Creative Commons Attribution-ShareAlike 4.0. Download from
 https://huggingface.co/datasets/Mohammadta/BEAM-10M .
-Dataset-derived evaluation artifacts in `results/` retain CC BY-SA 4.0;
+Dataset-derived evaluation artifacts in `results/` and `diagnostics/` retain CC BY-SA 4.0;
 the harness code is MIT licensed. The source conversations are not distributed here.

@@ -1,0 +1,85 @@
+{
+  "attempted_questions": 180,
+  "successful_audits": 179,
+  "errors": [
+    {
+      "id": "4:event_ordering:0",
+      "status": "error",
+      "error": "Invalid auditor item list: returned 1 of 9 required items"
+    }
+  ],
+  "note": "Post-hoc model judgments, not a measured causal split. A supported label requires literal verified quotes; uncertain includes citation failures.",
+  "by_ability_rubric_counts": {
+    "contradiction_resolution": {
+      "absent": 24,
+      "supported": 33,
+      "behavioral": 20,
+      "partial": 1,
+      "uncertain": 2
+    },
+    "event_ordering": {
+      "uncertain": 30,
+      "supported": 39,
+      "absent": 112,
+      "partial": 32
+    },
+    "information_extraction": {
+      "supported": 17,
+      "uncertain": 3,
+      "absent": 2,
+      "partial": 1
+    },
+    "instruction_following": {
+      "supported": 21,
+      "partial": 2,
+      "uncertain": 9,
+      "absent": 1
+    },
+    "knowledge_update": {
+      "supported": 20,
+      "absent": 4,
+      "uncertain": 1,
+      "partial": 1
+    },
+    "multi_session_reasoning": {
+      "absent": 22,
+      "uncertain": 4,
+      "supported": 9,
+      "partial": 1
+    },
+    "preference_following": {
+      "uncertain": 7,
+      "supported": 18,
+      "absent": 6,
+      "partial": 2,
+      "behavioral": 2
+    },
+    "summarization": {
+      "partial": 27,
+      "uncertain": 38,
+      "supported": 24,
+      "absent": 17
+    },
+    "temporal_reasoning": {
+      "partial": 7,
+      "supported": 16,
+      "absent": 11,
+      "uncertain": 6
+    }
+  },
+  "non_event_non_abstention_questions": 160,
+  "non_event_questions_losing_credit": {
+    "at_least_one_factual_target_missing_or_partial": 68,
+    "all_factual_targets_supported": 32,
+    "uncertain": 12
+  },
+  "non_event_questions_missing_at_least_one_supported_target": 46,
+  "non_event_lost_question_score_units_by_coverage": {
+    "absent": 31.455555555555556,
+    "supported": 30.28333333333333,
+    "behavioral": 3.5,
+    "partial": 10.441666666666666,
+    "uncertain": 10.216666666666667
+  },
+  "citation_validation_failures": 97
+}

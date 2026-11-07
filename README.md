@@ -25,6 +25,9 @@ and GPT-4.1-mini judge. See [RESULTS.md](RESULTS.md) for category scores, uncert
 retrieval-loop statistics, downloadable evidence, and limitations, and
 [the methodology](docs/methodology.md) for scoring and data isolation.
 
+[Failure analysis](FAILURE_ANALYSIS.md) separates missing evidence from reader
+errors, including a controlled replay with the exact same retrieved evidence.
+
 ## Run it
 
 Requires Python 3.11+, `uv`, and a running GoodMem instance with an embedder,

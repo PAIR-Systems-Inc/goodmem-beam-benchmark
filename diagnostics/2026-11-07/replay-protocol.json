@@ -1,0 +1,17 @@
+{
+  "method": "fixed original tool trajectory, different final reader",
+  "reader": "gpt-5.2",
+  "reasoning_effort": "low",
+  "max_output_tokens": 10000,
+  "system_prompt_sha256": "caa637b455d215794d042050f74c2b6e147923ef63ff9cd80c0dd7dc1bd9ca0f",
+  "source_protocol_sha256": "7502c467abbba5ad17a62b95ebe233d63887ee900aeb1c30ae7893605f1667a9",
+  "categories": [
+    "contradiction_resolution",
+    "information_extraction",
+    "knowledge_update",
+    "multi_session_reasoning",
+    "temporal_reasoning"
+  ],
+  "questions": 100,
+  "final_instruction": "Using only the historical evidence already provided, answer the original question now. No further tools are available."
+}

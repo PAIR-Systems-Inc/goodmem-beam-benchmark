@@ -1,0 +1,58 @@
+{
+  "searches": 248,
+  "chunks_returned": 2976,
+  "chunks_without_an_inline_message_header": 309,
+  "mean_distinct_memory_blocks_per_search": 8.318548387096774,
+  "by_ability": {
+    "abstention": {
+      "questions": 20,
+      "not_full_credit": 6,
+      "not_full_credit_and_one_search": 6
+    },
+    "contradiction_resolution": {
+      "questions": 20,
+      "not_full_credit": 18,
+      "not_full_credit_and_one_search": 18
+    },
+    "event_ordering": {
+      "questions": 20,
+      "not_full_credit": 20,
+      "not_full_credit_and_one_search": 5
+    },
+    "information_extraction": {
+      "questions": 20,
+      "not_full_credit": 9,
+      "not_full_credit_and_one_search": 8
+    },
+    "instruction_following": {
+      "questions": 20,
+      "not_full_credit": 11,
+      "not_full_credit_and_one_search": 11
+    },
+    "knowledge_update": {
+      "questions": 20,
+      "not_full_credit": 6,
+      "not_full_credit_and_one_search": 6
+    },
+    "multi_session_reasoning": {
+      "questions": 20,
+      "not_full_credit": 18,
+      "not_full_credit_and_one_search": 15
+    },
+    "preference_following": {
+      "questions": 20,
+      "not_full_credit": 12,
+      "not_full_credit_and_one_search": 12
+    },
+    "summarization": {
+      "questions": 20,
+      "not_full_credit": 18,
+      "not_full_credit_and_one_search": 10
+    },
+    "temporal_reasoning": {
+      "questions": 20,
+      "not_full_credit": 20,
+      "not_full_credit_and_one_search": 11
+    }
+  }
+}
