@@ -134,3 +134,27 @@ def test_compaction_preserves_tool_protocol():
     assert trim_context(history, 500) == 1
     assert history[0]["content"] == "question"
     assert history[2]["tool_call_id"] == "a"
+
+
+def test_report_never_reports_a_complete_score_for_missing_questions(tmp_path):
+    from goodmem_beam.dataset import ABILITIES
+    from goodmem_beam.io import digest, write_json
+    from goodmem_beam.report import report
+    from goodmem_beam.run import filename
+
+    prepared, run = tmp_path / "prepared", tmp_path / "run"
+    qs = [{"id": f"1:{ability}:{i}", "conversation_id": "1", "ability": ability,
+           "question": "q", "rubric": ["r"]} for ability in ABILITIES for i in range(2)]
+    write_json(prepared / "1.questions.json", qs)
+    write_json(prepared / "manifest.json", {"conversations": [{"id": "1", "questions_sha256": digest(qs)}]})
+    write_json(run / "protocol.json", {"conversations": ["1"]})
+    for q in qs:
+        write_json(run / "answers" / filename(q), {"status": "ok", "searches": 3, "reads": 0,
+                   "seconds": 1, "stop_reason": "answered", "usage": {"prompt_tokens": 1, "completion_tokens": 1}})
+        write_json(run / "judgments" / filename(q), {"status": "ok", "score": 1, "recall_adjusted_score": 1})
+    assert report(prepared, run)["primary_score"] == 1
+    (run / "judgments" / filename(qs[0])).unlink()
+    partial = report(prepared, run)
+    assert partial["primary_score"] is None
+    assert partial["expected_questions"] == 20
+    assert partial["scored_questions"] == 19

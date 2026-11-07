@@ -63,7 +63,7 @@ def ingest(client, prepared: Path, run_dir: Path, ids, embedder, config):
             raise ValueError("Index configuration/data changed; use a new index directory")
     else:
         state = {"fingerprint": fingerprint, "identity": identity, "spaces": {},
-                 "ready": False, "ingest_seconds": 0}
+                 "ready": False, "ingest_seconds": 0, "started_at": time.time()}
         write_json(state_path, state)
     # Checkpoints are serialized; only independent network batches run concurrently.
     for conv in selected:
@@ -146,6 +146,7 @@ def ingest(client, prepared: Path, run_dir: Path, ids, embedder, config):
             raise GoodMemError("Some memories FAILED processing; the index is not eligible for evaluation")
         if state["ready"]:
             state["ingest_seconds"] += time.monotonic() - started
+            state["ready_at"] = time.time()
             write_json(state_path, state)
             return state
         if time.monotonic() >= deadline:
@@ -194,6 +195,7 @@ def repair_failed(client, prepared: Path, run_dir: Path, *, rounds=3):
             time.sleep(20)
         if not failed:
             state["repair_seconds"] = state.get("repair_seconds", 0) + time.monotonic() - started
+            state["ready_at"] = time.time()
             write_json(path, state)
             return state
         if attempt == rounds:

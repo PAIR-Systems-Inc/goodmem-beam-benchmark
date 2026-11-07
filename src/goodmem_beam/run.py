@@ -48,6 +48,8 @@ def freeze(client, model_ids, config, index, run_dir, ids):
                 "index_fingerprint": index["fingerprint"], "conversations": ids,
                 "agent_prompt_sha256": digest(SYSTEM), "tools_sha256": digest(TOOLS),
                 "judge_prompt_sha256": digest(NUGGET_PROMPT)}
+    server = client.get("/v1/system/info")
+    protocol["server"] = {k: server.get(k) for k in ["version", "gitDescribe", "dirty"]}
     # Include code identity so resumed runs cannot silently mix implementations.
     source_dir = Path(__file__).parent
     protocol["source_sha256"] = digest({str(p.relative_to(source_dir)): p.read_text()
