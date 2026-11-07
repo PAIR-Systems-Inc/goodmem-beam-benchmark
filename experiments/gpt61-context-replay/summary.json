@@ -1,0 +1,30 @@
+[
+  {
+    "id": "3:event_ordering:0",
+    "condition": "retained",
+    "score": 0.6114285714285714,
+    "original_score": 0.4906976744186047,
+    "compactions": 0
+  },
+  {
+    "id": "9:summarization:1",
+    "condition": "trimmed",
+    "score": 0.6,
+    "original_score": 0.5,
+    "compactions": 22
+  },
+  {
+    "id": "3:event_ordering:0",
+    "condition": "trimmed",
+    "score": 0.24905660377358485,
+    "original_score": 0.4906976744186047,
+    "compactions": 23
+  },
+  {
+    "id": "9:summarization:1",
+    "condition": "retained",
+    "score": 0.6,
+    "original_score": 0.5,
+    "compactions": 0
+  }
+]

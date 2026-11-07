@@ -12,3 +12,4 @@ jobs:
       - run: uv run ruff check src tests tools
       - run: uv run pytest -q
       - run: uv run python tools/verify_results.py results/gpt-4.1-mini results/gpt-5.4-mini
+      - run: uv run python tools/verify_batches.py experiments/gpt61-medium-v2-50q

@@ -1,0 +1,800 @@
+{
+  "complete": false,
+  "expected_questions": 200,
+  "scored_questions": 50,
+  "errors_or_missing": [
+    {
+      "id": "1:event_ordering:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:information_extraction:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:information_extraction:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:instruction_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:instruction_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:knowledge_update:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:knowledge_update:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:multi_session_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:multi_session_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:preference_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:preference_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:summarization:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:summarization:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:temporal_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "1:temporal_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:abstention:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:abstention:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:information_extraction:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:instruction_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:instruction_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:knowledge_update:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:knowledge_update:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:multi_session_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:multi_session_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:preference_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:preference_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:summarization:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:summarization:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:temporal_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "2:temporal_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:abstention:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:abstention:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:contradiction_resolution:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:contradiction_resolution:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:instruction_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:knowledge_update:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:knowledge_update:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:multi_session_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:multi_session_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:preference_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:preference_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:summarization:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:summarization:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:temporal_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "3:temporal_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:abstention:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:abstention:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:contradiction_resolution:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:contradiction_resolution:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:event_ordering:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:event_ordering:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:knowledge_update:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:multi_session_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:multi_session_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:preference_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:preference_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:summarization:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:summarization:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:temporal_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "4:temporal_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:abstention:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:abstention:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:contradiction_resolution:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:contradiction_resolution:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:event_ordering:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:event_ordering:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:information_extraction:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:information_extraction:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:multi_session_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:preference_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:preference_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:summarization:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:summarization:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:temporal_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "5:temporal_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:abstention:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:abstention:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:contradiction_resolution:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:contradiction_resolution:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:event_ordering:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:event_ordering:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:information_extraction:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:information_extraction:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:instruction_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:instruction_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:preference_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:summarization:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:summarization:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:temporal_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "6:temporal_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:abstention:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:abstention:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:contradiction_resolution:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:contradiction_resolution:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:event_ordering:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:event_ordering:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:information_extraction:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:information_extraction:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:instruction_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:instruction_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:knowledge_update:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:knowledge_update:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:summarization:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:temporal_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "7:temporal_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:abstention:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:abstention:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:contradiction_resolution:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:contradiction_resolution:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:event_ordering:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:event_ordering:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:information_extraction:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:information_extraction:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:instruction_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:instruction_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:knowledge_update:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:knowledge_update:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:multi_session_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:multi_session_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "8:temporal_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:abstention:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:contradiction_resolution:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:contradiction_resolution:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:event_ordering:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:event_ordering:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:information_extraction:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:information_extraction:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:instruction_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:instruction_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:knowledge_update:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:knowledge_update:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:multi_session_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:multi_session_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:preference_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "9:preference_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:contradiction_resolution:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:event_ordering:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:event_ordering:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:information_extraction:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:information_extraction:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:instruction_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:instruction_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:knowledge_update:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:knowledge_update:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:multi_session_reasoning:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:multi_session_reasoning:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:preference_following:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:preference_following:1",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:summarization:0",
+      "answer": "missing",
+      "judgment": "missing"
+    },
+    {
+      "id": "10:summarization:1",
+      "answer": "missing",
+      "judgment": "missing"
+    }
+  ],
+  "primary_score": null,
+  "recall_adjusted_score": null,
+  "conversation_bootstrap_95ci": null,
+  "per_ability": {
+    "abstention": 1.0,
+    "contradiction_resolution": 0.75,
+    "event_ordering": 0.33610451756710163,
+    "information_extraction": 0.8,
+    "instruction_following": 0.6,
+    "knowledge_update": 0.8,
+    "multi_session_reasoning": 0.13999999999999999,
+    "preference_following": 0.45,
+    "summarization": 0.5266666666666667,
+    "temporal_reasoning": 0.5
+  },
+  "per_ability_recall_adjusted": {
+    "abstention": 1.0,
+    "contradiction_resolution": 0.75,
+    "event_ordering": 0.1255740358048767,
+    "information_extraction": 0.8,
+    "instruction_following": 0.6,
+    "knowledge_update": 0.8,
+    "multi_session_reasoning": 0.13999999999999999,
+    "preference_following": 0.45,
+    "summarization": 0.5266666666666667,
+    "temporal_reasoning": 0.5
+  },
+  "per_conversation": {},
+  "metric": "Mean of conversation/ability means; event ordering uses upstream tau_norm",
+  "searches_mean": 7.12,
+  "searches_max": 27,
+  "reads_mean": 2.7,
+  "answer_seconds_mean": 83.63075507145928,
+  "stop_reasons": {
+    "verified_submission": 47,
+    "budget_exhausted": 3
+  },
+  "reader_usage": {
+    "prompt_tokens": 51522833,
+    "completion_tokens": 64906,
+    "reasoning_tokens": 6635,
+    "cached_tokens": 26642160
+  }
+}

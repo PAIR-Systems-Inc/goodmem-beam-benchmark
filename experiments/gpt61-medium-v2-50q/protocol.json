@@ -1,0 +1,104 @@
+{
+  "config": {
+    "dataset": {
+      "revision": "9b2096193fe74e2837e4713e483351e19817773c",
+      "conversations": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ]
+    },
+    "ingest": {
+      "memory_chars": 48000,
+      "chunk_chars": 3200,
+      "overlap_chars": 400,
+      "batch_size": 32,
+      "workers": 4,
+      "ready_timeout": 7200
+    },
+    "retrieval": {
+      "candidates": 128,
+      "top_k": 20,
+      "ef_search": 256,
+      "min_interval_seconds": 3.0
+    },
+    "agent": {
+      "api": "responses",
+      "reasoning_effort": "medium",
+      "min_distinct_searches": 3,
+      "max_steps": 32,
+      "max_context_chars": 600000,
+      "max_output_tokens": 16000,
+      "temperature": 0.0,
+      "workers": 4
+    },
+    "judge": {
+      "workers": 8,
+      "max_output_tokens": 1200
+    }
+  },
+  "models": {
+    "embedder": {
+      "modelIdentifier": "voyage-4-large",
+      "providerType": "VOYAGE",
+      "displayName": "Voyage 4 Large"
+    },
+    "reranker": {
+      "modelIdentifier": "rerank-3",
+      "providerType": "VOYAGE",
+      "displayName": "voyage-rerank-3"
+    },
+    "reader": {
+      "modelIdentifier": "gpt-4.1-mini",
+      "providerType": "OPENAI",
+      "displayName": "locomo-reader-gpt-4.1-mini"
+    },
+    "judge": {
+      "modelIdentifier": "gpt-4.1-mini",
+      "providerType": "OPENAI",
+      "displayName": "locomo-reader-gpt-4.1-mini"
+    }
+  },
+  "requested_models": {
+    "reader": "gpt-6.1-sol",
+    "judge": "gpt-4.1-mini"
+  },
+  "reader_inference": {
+    "api": "responses",
+    "store": false,
+    "max_output_tokens": 16000,
+    "reasoning": {
+      "effort": "medium",
+      "context": "all_turns"
+    }
+  },
+  "index_fingerprint": "ce75311dde612ae884e61bc311cb3a232332340860e91f0564213dd7715ca52b",
+  "conversations": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10"
+  ],
+  "agent_prompt_sha256": "96f8b20d02acb83d9825f45366e4c456e0df88cbeabb484999f8fc0918979eee",
+  "tools_sha256": "0d2268a14d53c40732c3a3885b44dc40252c16fe9e133b213a6e23e5768f1e9a",
+  "judge_prompt_sha256": "bde238f9242c06c1b0789894bd1e0273ba7e84986a9e0b7986a97c18c9b15d1e",
+  "server": {
+    "version": "0.0.0-dev",
+    "gitDescribe": "clients/v2/go/v0.1.14-42-gf9b737042-dirty",
+    "dirty": true
+  },
+  "source_sha256": "fe39438ed6edb1762e66058c356307c12297027bfeee8753a56cd2c836b397f8"
+}

@@ -1,0 +1,7 @@
+{
+  "questions": 50,
+  "scope": "Development subset; not a full BEAM result",
+  "score": 0.5902771184233768,
+  "matched_gpt54_mini_score": 0.432583402951824,
+  "source_commit": "933e494"
+}
