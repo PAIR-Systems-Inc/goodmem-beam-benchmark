@@ -84,11 +84,6 @@ changing a judge changes the reported result. Our 95% interval of 61.08–68.16%
 measures variation across ten conversations. It does not account for different
 judges or establish a significant lead over Hindsight or a gap behind Mastra.
 
-**Our harness was improved using earlier BEAM failures.** We then kept it fixed
-for the full 200-question run. We have not yet tested those improvements on a
-fresh benchmark. The earlier 52.28% figure was a 100-question reader replay with
-fixed evidence and does not belong in this table.
-
 For comparisons over time, the Hindsight, Mem0, past.dev prompt, and OmniMemEval
 links below pin the revisions inspected. Other links are dated papers or live
 publisher pages and may change. This is a survey of verified public sources,

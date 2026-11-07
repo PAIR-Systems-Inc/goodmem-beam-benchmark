@@ -51,23 +51,10 @@ GoodMem performs dense retrieval and registered cross-encoder reranking. HNSW us
 must return a complete rerank result set. Provider or stream failures are recorded
 as infrastructure errors, never interpreted as evidence absence.
 
-The default run uses temperature 0, 128 candidates, 12 selected chunks per search,
-16 tool rounds, and 5,000 output tokens per reader call. Old tool bodies can be
-removed when the active history exceeds 180,000 characters. This is a character
-budget, not an exact token limit; model-reported usage is retained separately.
-
-The GPT-5.4-mini comparison uses the same tool loop and budgets, with
-`reasoning_effort=none` and no temperature parameter. Its Chat Completions endpoint
-rejects function tools when reasoning effort is enabled. This model-specific
-setting is explicit in `reader_inference` in the frozen protocol. Both readers
-use GPT-4.1-mini for grading. The requested model can differ from the display name
-of the GoodMem proxy registration; `requested_models` and the response traces
-record the actual choice.
-
 The GPT-6.1 Sol medium profile uses the Responses API and preserves every returned
 input-history item between calls, including opaque reasoning and assistant phase.
 Opaque reasoning is not logged or exported. The client verifies the returned
-reasoning effort. Its v3 configuration reranks to 20 chunks from the same 128
+reasoning effort. Its configuration reranks to 20 chunks from 128
 candidates, allows 32 tool rounds, and retains up to 2.8 million characters of
 active history with 16,000 output tokens per call. It restores missing source
 headers only by exact matching within the already-retrieved parent block and adds
@@ -78,15 +65,12 @@ Stopping requires three distinct normalized queries, a factual coverage checklis
 referencing returned evidence IDs, and a new search or message read after the
 first eligible answer draft. These controls verify procedure, not semantic
 completeness or truth. A final answer at the round limit is explicitly flagged.
-The judge and scoring remain unchanged. This profile changes both reader and
-harness, so comparison with the earlier runs does not isolate a model effect.
+The judge is GPT-4.1-mini with the upstream BEAM prompts.
 
-Runs are reviewed in balanced batches of 25. Earlier BEAM failures, a
-50-question v2 run, and a two-question context-retention diagnostic informed the
-generic v3 harness. All 200 v3 answers then used that fixed configuration without
-change across all eight batch reviews. Transfer to a fresh benchmark has not been
-measured. See the [experiment record](gpt61-experiment.md) for configuration
-history and audits.
+All 200 answers used the same prompt and configuration, with a review every
+25 questions. The harness was developed on BEAM; transfer to a fresh benchmark
+has not been measured. See the [Sol run record](gpt61-experiment.md) for batch
+scores and reproduction steps.
 
 ## Scoring
 
@@ -134,9 +118,8 @@ configuration fingerprint. Before answering, every memory is rechecked for
 an incomplete run has no full overall score. Answers and judgments are atomic
 per-question files and can be resumed after transient errors.
 
-The initial measured ingestion submitted all memories before provider throttling
-was discovered. The harness now paces new submissions at an estimated 3M input
-tokens/minute with a 40% margin for overlap/tokenizer differences. Repair waits
+Ingestion paces new submissions at an estimated 3M input tokens/minute with a
+40% margin for overlap/tokenizer differences. Repair waits
 for active processing to finish, then deletes/recreates only failed memories
 whose deterministic IDs, space, and source-content hashes match this index.
 These operational retries do not change the corpus or retrieval configuration.

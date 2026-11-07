@@ -33,7 +33,7 @@ def main():
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--batch", type=int, required=True, help="Zero-based batch index")
     parser.add_argument("--batch-size", type=int, default=25)
-    parser.add_argument("--baseline", type=Path, default=Path("runs/react-gpt54-mini"))
+    parser.add_argument("--baseline", type=Path, help="Optional run for a matched comparison")
     parser.add_argument("--prepared", type=Path, default=Path("data/prepared"))
     parser.add_argument("--index", type=Path, default=Path("runs/index-voyage4"))
     args = parser.parse_args()
@@ -66,9 +66,10 @@ def main():
         if judgment.get("status") != "ok":
             errors.append(q["id"])
             continue
-        base = read_json(args.baseline / "judgments" / filename(q))
-        row = {"id": q["id"], "ability": q["ability"], "score": judgment["score"],
-               "baseline_score": base["score"], "delta": judgment["score"] - base["score"]}
+        row = {"id": q["id"], "ability": q["ability"], "score": judgment["score"]}
+        if args.baseline is not None:
+            base = read_json(args.baseline / "judgments" / filename(q))
+            row.update(baseline_score=base["score"], delta=judgment["score"] - base["score"])
         rows.append(row)
         by_ability[q["ability"]].append(row)
     complete = len(rows) == len(selected)
@@ -76,11 +77,14 @@ def main():
               "complete": complete, "errors": errors,
               "question_ids": [q["id"] for q in selected],
               "score": mean(r["score"] for r in rows) if complete else None,
-              "baseline_score": mean(r["baseline_score"] for r in rows) if complete else None,
-              "paired_delta": mean(r["delta"] for r in rows) if complete else None,
-              "per_ability": {a: {"count": len(rs), "score": mean(r["score"] for r in rs),
-                                  "baseline": mean(r["baseline_score"] for r in rs)}
+              "per_ability": {a: {"count": len(rs), "score": mean(r["score"] for r in rs)}
                               for a, rs in by_ability.items()}, "rows": rows}
+    if args.baseline is not None:
+        result["baseline_score"] = mean(r["baseline_score"] for r in rows) if complete else None
+        result["paired_delta"] = mean(r["delta"] for r in rows) if complete else None
+        for ability, ability_rows in by_ability.items():
+            result["per_ability"][ability]["baseline"] = mean(
+                r["baseline_score"] for r in ability_rows)
     write_json(args.run / "batches" / f"batch-{args.batch:02d}.json", result)
     print(json.dumps({k: v for k, v in result.items() if k != "rows"}, indent=2), flush=True)
     if not complete:
