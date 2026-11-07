@@ -4,7 +4,7 @@
 questions and ten complete histories.** The same v3 harness was used throughout,
 with a review after every 25 questions. Evaluation completed on 7 November 2026.
 
-| Reader and harness | Questions graded | Primary score | 95% conversation bootstrap CI | Recall-adjusted score |
+| Reader and harness | Questions graded | Primary score | 95% conversation bootstrap CI | Event-F1-adjusted score |
 | --- | ---: | ---: | ---: | ---: |
 | GPT-4.1-mini, initial harness | 200/200 | 44.49% | 40.33–48.44% | 42.64% |
 | GPT-5.4-mini, reasoning disabled, initial harness | 200/200 | 46.37% | 41.17–51.71% | 44.41% |
@@ -12,15 +12,17 @@ with a review after every 25 questions. Evaluation completed on 7 November 2026.
 
 The gain over the previous complete GPT-5.4-mini run is **18.24 percentage
 points**, with a paired conversation-bootstrap 95% interval of **13.95–22.52
-points**. Both the reader and harness changed; this is not an isolated model
-comparison. Generic policies were developed while inspecting BEAM failures, so
-this is a **development evaluation, not held-out validation**.
+points**. Both the reader and harness changed, so this does not isolate the model
+effect. Earlier BEAM failures informed generic harness improvements, and the full
+200-question run then used a fixed configuration; transfer to a fresh benchmark
+has not been measured.
 
 These are mean rubric scores, not percentages of wholly correct answers. The
 primary metric follows upstream reporting: normalized Kendall tau for event
-ordering and mean nugget scores for the other nine abilities. The secondary
+ordering and mean nugget scores for the other nine abilities. The event-F1-adjusted
 metric uses `tau_norm × event F1` for event ordering. Both are reported because
-omitting events can receive a high ordering score. See [methodology](docs/methodology.md).
+`tau_norm` alone can score high when events are omitted, whereas F1 penalizes both
+missing and extra events. See [methodology](docs/methodology.md).
 
 Intervals use 10,000 resamples of entire conversations, seed 20261107. They
 measure variation across these ten histories, not judge disagreement, repeated
@@ -44,12 +46,12 @@ Each cell averages 20 questions. Scores are percentages.
 | Preference following | 66.25 | 56.25 | 72.50 |
 | Summarization | 57.69 | 58.68 | 68.94 |
 | Temporal reasoning | 17.50 | 7.50 | 55.00 |
-| Event ordering, recall-adjusted (secondary) | 2.07 | 3.55 | 12.17 |
+| Event ordering, event-F1-adjusted (secondary) | 2.07 | 3.55 | 12.17 |
 
 Event reconstruction and multi-session aggregation remain the weakest areas.
-The event-ordering drop after recall adjustment shows that recovering the
-required event set is still difficult. Batch reviews also found incorrect
-episode/date selection, missed conflicting claims, and answers that requested
+The event-ordering drop after multiplying by F1 shows that recovering the
+required event set without adding extra events is still difficult. Batch reviews
+also found incorrect episode/date selection, missed conflicting claims, and answers that requested
 clarification without supplying the requested information. These observations do
 not isolate retrieval failures from reader decisions or reference/judge issues.
 
@@ -184,6 +186,7 @@ upstream implementation on eleven ranking edge cases; the nugget prompt matches
 upstream byte for byte.
 
 Dataset-derived artifacts are **CC BY-SA 4.0**, attributed to BEAM by Tavakoli
-et al. See [third-party notices](THIRD_PARTY_NOTICES.md). These results do not
-establish a ranking against Hindsight or paper baselines using different readers,
-judges, memory construction, or inference budgets.
+et al. See [third-party notices](THIRD_PARTY_NOTICES.md). The
+[published-results comparison](docs/published-beam-results.md) lists other
+BEAM-10M scores and the differences in readers, judges, and scoring rules that
+affect comparisons.

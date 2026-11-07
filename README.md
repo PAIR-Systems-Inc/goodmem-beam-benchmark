@@ -20,16 +20,17 @@ under `o200k_base`. Individual conversations measure 9.66–12.93 million tokens
 with that tokenizer. “10M” denotes the authors' split, not a filter we apply.
 
 Measured on all 200 questions: **64.61% with GPT-6.1 Sol, medium reasoning**, up
-from 46.37% with GPT-5.4-mini and 44.49% with GPT-4.1-mini. The recall-adjusted
+from 46.37% with GPT-5.4-mini and 44.49% with GPT-4.1-mini. The event-F1-adjusted
 score is **62.56%**. All runs use the same GoodMem index and GPT-4.1-mini judge;
 the GPT-6.1 run also changes the harness. These are mean rubric scores.
 
-The full GPT-6.1 run uses one fixed configuration, reviewed every 25 questions.
-Its instructions are generic, but were developed while examining BEAM failures:
-this is a development evaluation, not held-out validation. See
-[RESULTS.md](RESULTS.md) for category scores, uncertainty, retrieval-loop
-statistics, artifacts, and limitations, and [the methodology](docs/methodology.md)
-for scoring and data isolation.
+Earlier BEAM failures informed generic harness improvements; the full 200-question
+GPT-6.1 run then used one fixed configuration, reviewed every 25 questions.
+Transfer to a fresh benchmark has not been measured. See
+[RESULTS.md](RESULTS.md) for category scores, confidence intervals, retrieval
+statistics, and artifacts, and [the methodology](docs/methodology.md)
+for scoring and data isolation. The [published-results comparison](docs/published-beam-results.md)
+lists other BEAM-10M reports alongside their reader models, judges, and scoring rules.
 
 The earlier [failure analysis](FAILURE_ANALYSIS.md) examines missing evidence and
 reader errors, including a replay with the exact same retrieved evidence.
@@ -106,8 +107,7 @@ BEAM_READER_MODEL=gpt-6.1-sol uv run python tools/run_batch.py \
 
 Review the 25-question result before incrementing `--batch` (zero based, 0–7).
 The prompt receives no ability labels, rubric text, or hand-written queries for
-individual benchmark questions. Policies developed while inspecting BEAM are
-still benchmark-informed; the experiment does not establish held-out transfer.
+individual benchmark questions.
 
 `--conversations 1,2` selects a subset and must appear before the command. Label
 such results as a subset; the report includes its exact denominator. A changed
@@ -150,7 +150,8 @@ Nine abilities use the official nugget prompt with scores of 0, 0.5, or 1.
 Event ordering follows the released greedy event alignment and normalized
 Kendall tau calculation. The upstream reporting script uses `tau_norm`; the
 underlying scorer also computes `tau_norm × F1`. **Both overall variants are
-reported**. This distinction matters when events are omitted.
+reported** (primary and event-F1-adjusted), because F1 accounts for both missing
+and extra events.
 
 Exports include answers, rubrics, raw judge outputs, retrieval queries and evidence
 identifiers, dataset checksums, and the frozen configuration. Full source excerpts

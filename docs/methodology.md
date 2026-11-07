@@ -81,13 +81,12 @@ completeness or truth. A final answer at the round limit is explicitly flagged.
 The judge and scoring remain unchanged. This profile changes both reader and
 harness, so comparison with the earlier runs does not isolate a model effect.
 
-Runs are reviewed in balanced batches of 25. All 200 v3 answers use the same
-generic prompt and configuration, following a 50-question v2 development run and
-a small context-retention diagnostic. After the first v3 batch, the decision was
-to continue unchanged through the remaining seven reviews. This is development
-on BEAM; it is not a held-out evaluation. No question-specific answer hints are
-added. See the
-[experiment record](gpt61-experiment.md) for configuration history and audits.
+Runs are reviewed in balanced batches of 25. Earlier BEAM failures, a
+50-question v2 run, and a two-question context-retention diagnostic informed the
+generic v3 harness. All 200 v3 answers then used that fixed configuration without
+change across all eight batch reviews. Transfer to a fresh benchmark has not been
+measured. See the [experiment record](gpt61-experiment.md) for configuration
+history and audits.
 
 ## Scoring
 
@@ -108,8 +107,9 @@ Event ordering follows the released implementation:
 3. Build the ordered union, assign missing items a shared last rank, compute
    Kendall tau-b, and normalize it to `(tau + 1) / 2`.
 4. The primary report uses `tau_norm`, matching upstream `report_results.py`.
-   The secondary report substitutes `tau_norm × event F1`, which upstream
-   `compute_metrics.py` names `final_score`.
+   The event-F1-adjusted report substitutes `tau_norm × event F1` (named
+   `final_score` in upstream `compute_metrics.py`), which accounts for both
+   missing and extra events.
 
 Undefined tau (for example, a wholly tied sequence) is explicitly mapped to zero
 and flagged. Upstream may emit NaN here; the difference is documented rather than
