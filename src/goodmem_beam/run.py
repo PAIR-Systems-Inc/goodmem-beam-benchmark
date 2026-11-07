@@ -45,6 +45,7 @@ def freeze(client, model_ids, config, index, run_dir, ids):
         m = client.get(f"/v1/{kind}/{model_ids[key]}")
         model_names[key] = {k: m.get(k) for k in ["modelIdentifier", "providerType", "displayName"]}
     protocol = {"config": config, "models": model_names, "model_ids": model_ids,
+                "requested_models": {"reader": model_ids["reader_model"], "judge": model_ids["judge_model"]},
                 "index_fingerprint": index["fingerprint"], "conversations": ids,
                 "agent_prompt_sha256": digest(SYSTEM), "tools_sha256": digest(TOOLS),
                 "judge_prompt_sha256": digest(NUGGET_PROMPT)}
