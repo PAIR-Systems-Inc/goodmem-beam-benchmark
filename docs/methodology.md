@@ -48,6 +48,14 @@ The default run uses temperature 0, 128 candidates, 12 selected chunks per searc
 removed when the active history exceeds 180,000 characters. This is a character
 budget, not an exact token limit; model-reported usage is retained separately.
 
+The GPT-5.4-mini comparison uses the same tool loop and budgets, with
+`reasoning_effort=none` and no temperature parameter. Its Chat Completions endpoint
+rejects function tools when reasoning effort is enabled. This model-specific
+setting is explicit in `reader_inference` in the frozen protocol. Both readers
+use GPT-4.1-mini for grading. The requested model can differ from the display name
+of the GoodMem proxy registration; `requested_models` and the response traces
+record the actual choice.
+
 ## Scoring
 
 For nine abilities, the unchanged `unified_llm_judge_base_prompt` from the pinned
