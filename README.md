@@ -63,6 +63,17 @@ uv run beam --run runs/react-v1 report
 uv run beam --run runs/react-v1 export results/react-v1
 ```
 
+If provider throttling leaves answer errors after a pass, retry only those answers
+with paced retrieval, then rerun grading. Successful answers stay fixed:
+
+```bash
+uv run python tools/retry_errors.py --run runs/react-v1
+uv run beam --run runs/react-v1 judge
+```
+
+The helper reads the original model/settings from the frozen run, records each
+retry, and retains failed attempt files. Let the original answer pass finish first.
+
 `--conversations 1,2` selects a subset and must appear before the command. Label
 such results as a subset; the report includes its exact denominator. A changed
 index configuration requires a new index directory. Changing the reader, prompts,
