@@ -1,0 +1,14 @@
+name: Check harness and published results
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.11'
+      - run: uv sync --locked
+      - run: uv run ruff check src tests tools
+      - run: uv run pytest -q
+      - run: uv run python tools/verify_results.py results/gpt-4.1-mini results/gpt-5.4-mini

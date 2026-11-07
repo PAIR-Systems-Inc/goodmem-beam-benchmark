@@ -80,8 +80,12 @@ Event ordering follows the released implementation:
 
 Undefined tau (for example, a wholly tied sequence) is explicitly mapped to zero
 and flagged. Upstream may emit NaN here; the difference is documented rather than
-letting JSON or aggregation silently discard the question. Failed or malformed
-judge responses stay errors. They are not repaired into fabricated grades.
+letting JSON or aggregation silently discard the question. Failed or structurally
+malformed judge responses stay errors. A narrow parser normalization doubles
+invalid backslashes inside JSON strings (for example, LaTeX delimiters in the
+reason). It preserves the literal text and numeric score, flags the normalization,
+and retains the original response. It cannot repair missing fields, truncated
+objects, or invalid scores. The upstream scorer uses a broader JSON repair library.
 
 Intervals resample whole conversations with replacement (10,000 samples, seed
 20261107), preserving dependence among the 20 questions about a conversation.

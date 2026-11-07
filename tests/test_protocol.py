@@ -5,7 +5,28 @@ import pytest
 from goodmem_beam.agent import answer, trim_context
 from goodmem_beam.client import GoodMemError, parse_retrieval
 from goodmem_beam.dataset import ChatReader, blocks, messages, questions
-from goodmem_beam.judge import event_metrics
+from goodmem_beam.judge import event_metrics, parse_json
+
+
+def test_judge_normalizes_only_literal_invalid_escapes():
+    raw = r'{"score": 0.5, "reason": "Uses \(x\), \\alpha and \"quoted\" text.\nDone."}'
+    verdict, normalized = parse_json(raw)
+    assert normalized
+    assert verdict == {"score": 0.5,
+                       "reason": 'Uses \\(x\\), \\alpha and "quoted" text.\nDone.'}
+    valid = json.dumps(verdict)
+    assert parse_json(valid) == (verdict, False)
+    assert parse_json('```json\n' + valid + '\n```') == (verdict, False)
+
+
+@pytest.mark.parametrize("raw", [
+    r'{"score": 1, "reason": "truncated \(x\)"',
+    r'{"score": 1, "reason": "invalid unicode \uZZZZ"}',
+    r'{"score": 1 "reason": "missing comma"}',
+])
+def test_judge_refuses_structural_json_repair(raw):
+    with pytest.raises(json.JSONDecodeError):
+        parse_json(raw)
 
 
 def test_canonical_chat_no_duplicate_plans_or_metadata():

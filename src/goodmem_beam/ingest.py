@@ -170,12 +170,14 @@ def repair_failed(client, prepared: Path, run_dir: Path, *, rounds=3):
     for attempt in range(rounds + 1):
         while True:
             failed, active, complete, total = [], 0, 0, 0
+            status_counts = {}
             for conv in state["identity"]["conversations"]:
                 cid, expected = conv["id"], conv["memory_blocks"]
                 sid = state["spaces"][cid]
                 records = client.memories(sid)
                 if len(records) != expected:
                     raise GoodMemError("Missing memory: resume ingest before repair")
+                status_counts[cid] = dict(Counter(r["processingStatus"] for r in records))
                 for record in records:
                     status = record["processingStatus"]
                     if status == "FAILED":
@@ -185,7 +187,8 @@ def repair_failed(client, prepared: Path, run_dir: Path, *, rounds=3):
                     else:
                         active += 1
                 total += expected
-            state.update(ready=complete == total, completed=complete, failed=len(failed))
+            state.update(ready=complete == total, completed=complete, failed=len(failed),
+                         statuses=status_counts)
             write_json(path, state)
             print(f"index completed={complete}/{total} active={active} failed={len(failed)} retry_round={attempt}", flush=True)
             if active == 0:

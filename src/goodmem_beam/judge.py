@@ -23,10 +23,34 @@ EQUIVALENCE_SYSTEM = """
 
 
 def parse_json(text):
+    """Return a judgment and flag literal invalid escapes normalized in its strings.
+
+    Some judge explanations contain LaTeX such as \"\\\\(x\\\\)\" without JSON escaping.
+    Preserve those literal characters; never repair structure or infer a score.
+    """
     text = text.strip()
     if text.startswith("```"):
         text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text)
-    return json.loads(text)
+    try:
+        return json.loads(text), False
+    except json.JSONDecodeError as error:
+        if error.msg != "Invalid \\escape":
+            raise
+    result, inside, i = [], False, 0
+    while i < len(text):
+        char = text[i]
+        if inside and char == "\\" and i + 1 < len(text):
+            if text[i + 1] in '\\"/bfnrtu':
+                result.append(text[i:i + 2])
+                i += 2
+                continue
+            result.append("\\\\")
+        else:
+            result.append(char)
+            if char == '"':
+                inside = not inside
+        i += 1
+    return json.loads("".join(result)), True
 
 
 def event_metrics(reference, aligned):
@@ -116,9 +140,12 @@ class Judge:
             prompt = NUGGET_PROMPT.replace("<rubric_item>", item).replace("<llm_response>", answer)
             result = self.completion([{"role": "user", "content": prompt}])
             raw = result["message"]["content"]
-            verdict = parse_json(raw)
-            if verdict.get("score") not in {0, 0.5, 1} or not isinstance(verdict.get("reason"), str):
+            verdict, normalized = parse_json(raw)
+            if (not isinstance(verdict, dict) or isinstance(verdict.get("score"), bool)
+                    or verdict.get("score") not in {0, 0.5, 1}
+                    or not isinstance(verdict.get("reason"), str)):
                 raise ValueError("Invalid nugget judgment; refusing to invent a grade")
-            verdicts.append({"rubric": item, **verdict, "raw": raw, "usage": result["usage"]})
+            verdicts.append({"rubric": item, **verdict, "raw": raw, "usage": result["usage"],
+                             "json_escape_normalized": normalized})
         score = sum(v["score"] for v in verdicts) / len(verdicts)
         return {"score": score, "recall_adjusted_score": score, "nuggets": verdicts}
