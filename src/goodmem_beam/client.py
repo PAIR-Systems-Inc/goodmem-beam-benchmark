@@ -123,6 +123,13 @@ class GoodMem:
 
 
 def parse_retrieval(text):
+    try:
+        return _parse_retrieval(text)
+    except (ValueError, KeyError, TypeError) as e:
+        raise GoodMemError("Malformed retrieval response") from e
+
+
+def _parse_retrieval(text):
     memories, items, stages, closed, statuses = [], [], {}, set(), []
     for line in text.splitlines():
         line = line.strip()

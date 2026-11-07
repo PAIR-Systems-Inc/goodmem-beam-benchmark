@@ -110,6 +110,8 @@ def test_stream_validation_rejects_incomplete_or_degraded_retrieval():
         parse_retrieval(json.dumps(begin))
     with pytest.raises(GoodMemError, match="RERANKING_FAILED"):
         parse_retrieval(json.dumps({"status": {"code": "RERANKING_FAILED"}}))
+    with pytest.raises(GoodMemError, match="Malformed"):
+        parse_retrieval('{"truncated":')
 
 
 def test_read_tool_is_readonly_bounded_and_chronological(tmp_path):
