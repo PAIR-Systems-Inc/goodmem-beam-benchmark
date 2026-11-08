@@ -25,7 +25,7 @@ memory.
 | Exabase M-1 | 68.0% | Gemini 3 Flash | Gemini 3 Flash, per report | [Report][exabase]; category-specific prompts |
 | Qwen-Planner-Agent 27B + Persistent Memory Manager | 67.24% | Qwen-Planner-Model 27B | Not identified in the evaluation section | [Paper, Table 3][qwen]; Mem0 rubric-scoring protocol |
 | Mastra Observational Memory | 66.4% | Claude Opus 5.5 | Gemini 3 Flash | [Report][mastra]; mean of two runs |
-| **GoodMem + iterative agent** | **64.61%** | **GPT-6.1 Sol, medium** | **GPT-4.1-mini** | [Results](../RESULTS.md); **62.56%** with event F1 |
+| **GoodMem** | **64.61%** | **GPT-6.1 Sol, medium** | **GPT-4.1-mini** | [Results](../RESULTS.md); **62.56%** with event F1 |
 | Hindsight | 64.08% | Gemini 3.1 Pro Preview | Gemini 2.5 Flash Lite | [Published run artifact][hindsight]; exact aggregate 64.079772% |
 | krusch-context-mcp v2 | 58.71% / 48.18% | GPT-OSS-120B | Hermes 3 / Qwen2.5:32B | [Report][krusch]; score depends on which judge is used |
 | Mnemon | 51.2% / 48.8% | GPT-4.1-mini | GPT-4.1-mini / DeepSeek V4.1 Flash | [Paper, Table 4][mnemon]; alternate judge shown alongside the standard result |
